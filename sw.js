@@ -1,10 +1,13 @@
-/* Service worker do Campos.
-   IMPORTANTE: mude VERSAO a cada publicação (campos-v3, campos-v4...) para os celulares baixarem a versão nova.
+/* Service worker do Motora Teste.
+   IMPORTANTE: mude VERSAO a cada publicação (motora-teste-v4, motora-teste-v5...) para os celulares baixarem a versão nova.
    - Navegação / index.html: rede primeiro (pega atualização), cai no cache se estiver offline.
    - Demais arquivos do próprio site: cache primeiro.
-   - Nunca intercepta outros domínios (IA, Evolution, wa.me). */
-const VERSAO = 'campos-v2';
+   - Biblioteca supabase-js do jsDelivr: cache primeiro (é um arquivo fixo).
+   - NUNCA guarda nem intercepta o Supabase (*.supabase.co), Gemini, Groq ou qualquer outro domínio. */
+const VERSAO = 'motora-teste-v4';
 const ARQUIVOS = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
+const LIB = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js';
+const NUNCA = /(^|\.)supabase\.co$|(^|\.)googleapis\.com$|(^|\.)groq\.com$/;
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(VERSAO).then((c) => c.addAll(ARQUIVOS)).then(() => self.skipWaiting()));
@@ -19,7 +22,7 @@ self.addEventListener('activate', (e) => {
 });
 
 function guarda(req, resp) {
-  if (resp && resp.ok && resp.type === 'basic') {
+  if (resp && resp.ok && (resp.type === 'basic' || resp.type === 'cors')) {
     const copia = resp.clone();
     caches.open(VERSAO).then((c) => c.put(req, copia)).catch(() => {});
   }
@@ -34,9 +37,11 @@ self.addEventListener('fetch', (e) => {
   const req = e.request;
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
-  if (url.origin !== self.location.origin) return;
+  if (NUNCA.test(url.hostname)) return;
+  const ehCdn = url.href === LIB;
+  if (url.origin !== self.location.origin && !ehCdn) return;
 
-  if (ehPagina(req, url)) {
+  if (!ehCdn && ehPagina(req, url)) {
     // rede primeiro
     e.respondWith(
       fetch(req).then((resp) => guarda(req, resp)).catch(() =>

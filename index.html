@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#2E6B3F">
-<meta name="description" content="Agenda dos campos de futebol com atendimento por IA no WhatsApp.">
-<title>Campos</title>
+<meta name="description" content="Motora Teste: agenda dos campos de futebol e IA que atende o WhatsApp.">
+<title>Motora Teste</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/png" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -114,22 +114,61 @@ details.card>.corpo{padding:0 16px 16px}
 .passos li{margin:8px 0}
 a.lk{color:var(--pri);font-weight:700;display:inline-block;padding:10px 0;word-break:break-all}
 .priv{background:var(--naovem-bg);color:var(--txt);border-radius:12px;padding:12px;margin:8px 0}
+
+nav.barra button{position:relative}
+.badge{position:absolute;top:2px;left:calc(50% + 6px);min-width:20px;height:20px;border-radius:10px;background:var(--erro);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 5px}
+@media (prefers-color-scheme:dark){.badge{color:#2a0b09}}
+.ia-bt{flex-direction:column;min-height:112px;font-size:26px;letter-spacing:.5px;border-radius:20px;margin:8px 0 12px}
+.ia-bt small{font-size:16px;font-weight:500}
+.ia-bt.ia-off{background:var(--sup);color:var(--txt);border-color:var(--borda);border-width:3px}
+.seg{display:flex;gap:8px;margin:0 0 8px}
+.seg button{flex:1;min-width:0;min-height:64px;border-radius:12px;border:2px solid var(--borda);background:var(--sup);font-weight:700;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px}
+.seg button small{font-weight:400;color:var(--txt2);font-size:14px}
+.seg button[aria-pressed=true]{border-color:var(--pri);background:var(--pri-suave);color:var(--pri)}
+.conta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0}
+.conta>div{background:var(--sup);border:1px solid var(--borda);border-radius:12px;padding:10px 6px;text-align:center}
+.conta b{display:block;font-size:26px}
+.conta span{font-size:14px;color:var(--txt2)}
+.rst{font-size:18px;font-weight:700}
+.rst.ok{color:var(--pri)} .rst.erro{color:var(--erro)} .aviso-t{color:var(--aviso)}
+.sug .n,.aviso-c{word-break:break-word}
+.sug .msg{max-width:100%;margin:8px 0}
+.msg small{display:block;font-size:13px;color:var(--txt2);margin-top:2px}
+.msg.sugerida{border:2px dashed var(--pri);background:var(--pri-suave)}
+.msg.ign{opacity:.6;text-decoration:line-through}
+.hist{max-height:none}
+.acao{background:var(--bg);border-radius:12px;padding:10px;margin:8px 0}
+.selo.nl{background:var(--erro);color:#fff;margin-left:6px}
+.regra .rt{white-space:pre-wrap;word-break:break-word;margin-bottom:8px}
+.regra.off .rt{color:var(--txt2);text-decoration:line-through}
+.rb{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.rb .btn.mini{width:auto;flex:1 1 120px;min-height:48px}
+.rb .ico:disabled{opacity:.35}
+.codigo-box{text-align:center;background:var(--pri-suave);border-radius:12px;padding:12px;margin:12px 0}
+.codigo{font:700 34px/1.2 ui-monospace,Menlo,Consolas,monospace;letter-spacing:4px;word-break:break-all;user-select:all}
+.fx3{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:6px}
+.fx3 select,.fx3 input{padding:8px 4px;min-width:0}
+.g2{font-size:26px;width:36px;text-align:center}
+.lkb{background:none;border:0;cursor:pointer;padding:10px 0;font:inherit;text-decoration:underline;min-height:44px}
+.esp{background:var(--bg)}
 </style>
 </head>
 <body>
-<header class="topo"><h1 id="titulo">Agenda</h1><div id="acaoTopo"></div></header>
+<header class="topo"><h1 id="titulo">Motora Teste</h1><div id="acaoTopo"></div></header>
 <main id="tela" aria-live="polite"></main>
-<nav class="barra" id="barra" aria-label="Menu">
+<nav class="barra oculto" id="barra" aria-label="Menu">
+ <button data-t="inicio"><span class="pil"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></span>Início<span class="badge oculto"></span></button>
  <button data-t="agenda"><span class="pil"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>Agenda</button>
+ <button data-t="conversas"><span class="pil"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><circle cx="8" cy="10" r="1"/><circle cx="12" cy="10" r="1"/><circle cx="16" cy="10" r="1"/></svg></span>Conversas<span class="badge oculto"></span></button>
  <button data-t="clientes"><span class="pil"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-4 3-6 7-6s7 2 7 6"/><circle cx="17" cy="9" r="2.5"/></svg></span>Clientes</button>
- <button data-t="confirmar"><span class="pil"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg></span>Confirmar</button>
- <button data-t="ia"><span class="pil"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><circle cx="8" cy="10" r="1"/><circle cx="12" cy="10" r="1"/><circle cx="16" cy="10" r="1"/></svg></span>IA</button>
- <button data-t="ajustes"><span class="pil"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></span>Ajustes</button>
+ <button data-t="mais"><span class="pil"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg></span>Mais</button>
 </nav>
 <div class="fundo" id="fundo"></div>
 <div class="folha" id="folha" role="dialog" aria-modal="true"></div>
 <div id="toast" role="status"><span id="toastTx"></span><button id="toastBt" class="oculto"></button></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js" crossorigin="anonymous"></script>
 <script id="core">
+
 /* ===== Funções puras (sem DOM). Testadas em Node pelo test.js ===== */
 var REGRAS_PADRAO = [
   'Horários de início (cada reserva dura 1 hora):',
@@ -289,7 +328,7 @@ function normalizaTelefone(s) {
 function telefoneOk(s) { var d = normalizaTelefone(s); return /^55\d{10,11}$/.test(d) || (d.length >= 12 && d.length <= 15 && d.indexOf('55') !== 0); }
 function preencheModelo(tpl, v) {
   v = v || {};
-  return String(tpl || '').replace(/\{(nome|dia|hora|campo)\}/g, function (_, k) { return v[k] == null ? '' : String(v[k]); });
+  return String(tpl || '').replace(/\{(nome|dia|hora|campo|dono|pagamento|endereco)\}/g, function (_, k) { return v[k] == null ? '' : String(v[k]); });
 }
 function periodoDoDia(hora) { return hora < 12 ? 'manha' : (hora < 18 ? 'tarde' : 'noite'); }
 function proximoStatus(s) {
@@ -322,127 +361,7 @@ function textoConfirmacao(db, item) {
   });
 }
 
-/* ---- IA ---- */
 var TIPOS_ACAO = ['nenhuma', 'reservar_avulso', 'nao_vem', 'confirmar', 'cancelar'];
-
-function montaPrompt(db, cliente, hoje) {
-  var cfg = db.config, L = [], hojeS = dataLocal(hoje);
-  L.push('Você é o atendente de WhatsApp de um aluguel de 2 campos de futebol' + (cfg.nomeDono ? ', falando em nome de ' + cfg.nomeDono : '') + '.');
-  L.push('Responda em português do Brasil, curto, simpático e direto, como mensagem de WhatsApp.');
-  L.push('Hoje é ' + DIAS_LONGO[hoje.getDay()] + ', ' + formataDataBR(hojeS) + ' (' + hojeS + '), ' + hoje.getHours() + 'h.');
-  L.push('\nREGRAS DO NEGÓCIO:\n' + (cfg.regras || ''));
-  L.push('\nPREÇO: ' + (String(cfg.preco || '').trim() ? cfg.preco : 'não informado. NUNCA invente preço; diga que vai confirmar o valor.'));
-  L.push('\nCAMPOS: ' + listaCampos(db).map(function (c) { return c + ' = ' + nomeCampo(db, c); }).join('; '));
-  L.push('\nGRADE (horários de início):');
-  [1, 2, 3, 4, 5, 6, 0].forEach(function (d) {
-    var g = (cfg.grade[d] || []);
-    L.push('- ' + DIAS_LONGO[d] + ': ' + (g.length ? g.map(function (h) { return h + 'h'; }).join(', ') : 'fechado'));
-  });
-  var livres = livresProximosDias(db, 7, hoje), porData = {};
-  livres.forEach(function (l) { (porData[l.data] = porData[l.data] || []).push(l.hora + 'h ' + nomeCampo(db, l.campo) + ' (campo ' + l.campo + ')'); });
-  L.push('\nHORÁRIOS LIVRES NOS PRÓXIMOS 7 DIAS (só estes podem ser oferecidos a avulsos):');
-  var ds = Object.keys(porData);
-  if (!ds.length) L.push('- nenhum horário livre');
-  ds.forEach(function (d) { L.push('- ' + nomeDia(d) + ' ' + formataDataBR(d) + ' (' + d + '): ' + porData[d].join(', ')); });
-  L.push('\nCLIENTE DESTA CONVERSA:');
-  if (cliente) {
-    L.push('- Nome: ' + (cliente.nome || '(sem nome)') + ' | tipo: ' + (cliente.tipo === 'fixo' ? 'fixo' : 'avulso'));
-    if (cliente.tipo === 'fixo' && cliente.fixos && cliente.fixos.length) {
-      L.push('- Horários fixos: ' + cliente.fixos.map(function (f) { return DIAS_LONGO[f.dia] + ' ' + f.hora + 'h ' + nomeCampo(db, f.campo); }).join('; '));
-      for (var i = 0; i < 7; i++) {
-        var d = somaDias(hojeS, i);
-        cliente.fixos.forEach(function (f) {
-          if (Number(f.dia) !== diaSemana(d)) return;
-          var st = temExcecao(db, d, f.hora, f.campo, cliente.id) ? 'nao_vem' : statusDe(db, d, f.hora, f.campo);
-          L.push('  • ' + nomeDia(d) + ' ' + formataDataBR(d) + ' (' + d + ') ' + f.hora + 'h campo ' + f.campo + ': status ' + st);
-        });
-      }
-    }
-    var futuras = db.reservas.filter(function (r) { return r.clienteId === cliente.id && r.data >= hojeS; });
-    if (futuras.length) L.push('- Reservas avulsas: ' + futuras.map(function (r) { return r.data + ' ' + r.hora + 'h campo ' + r.campo + (r.pago ? ' (pago)' : ' (a pagar)'); }).join('; '));
-  } else {
-    L.push('- Contato novo, ainda não cadastrado.');
-  }
-  var conv = db.conversas || [];
-  if (conv.length) {
-    var cota = Math.floor(6000 / conv.length), ex = '';
-    conv.forEach(function (c) { ex += '\n--- ' + (c.nomeArquivo || 'conversa') + ' ---\n' + cortaConversa(c.texto, cota); });
-    L.push('\nEXEMPLOS DE CONVERSAS ANTIGAS DO DONO (imite o jeito de falar, não copie dados):' + cortaConversa(ex, 6000));
-  }
-  L.push('\nFORMATO: responda SOMENTE com um JSON válido, sem texto fora dele:');
-  L.push('{"resposta":"texto para enviar ao cliente","acao":{"tipo":"nenhuma|reservar_avulso|nao_vem|confirmar|cancelar","data":"AAAA-MM-DD","hora":20,"campo":1}}');
-  L.push('Use "reservar_avulso" só se o cliente pediu claramente e o horário está na lista de livres. Use "confirmar" ou "nao_vem" para o horário fixo do cliente. Use "cancelar" para uma reserva avulsa dele. Em dúvida, use "nenhuma" e pergunte.');
-  L.push('Nunca diga que algo foi reservado com certeza: diga que vai anotar. O dono revisa antes de enviar.');
-  return L.join('\n');
-}
-function montaContents(historico, msgNova) {
-  var out = [];
-  (historico || []).forEach(function (m) {
-    var role = m.de === 'dono' ? 'model' : 'user', t = String(m.texto || '');
-    if (!t) return;
-    if (!out.length && role === 'model') return;
-    var ult = out[out.length - 1];
-    if (ult && ult.role === role) ult.parts[0].text += '\n' + t;
-    else out.push({ role: role, parts: [{ text: t }] });
-  });
-  var u = out[out.length - 1];
-  if (u && u.role === 'user') u.parts[0].text += '\n' + msgNova;
-  else out.push({ role: 'user', parts: [{ text: String(msgNova) }] });
-  return out;
-}
-function contentsParaMessages(system, contents) {
-  return [{ role: 'system', content: system }].concat(contents.map(function (c) {
-    return { role: c.role === 'model' ? 'assistant' : 'user', content: c.parts.map(function (p) { return p.text; }).join('\n') };
-  }));
-}
-function montaReqGemini(modelo, chaveApi, system, contents) {
-  return {
-    url: 'https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(modelo) + ':generateContent',
-    init: {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': chaveApi },
-      body: JSON.stringify({ systemInstruction: { parts: [{ text: system }] }, contents: contents, generationConfig: { responseMimeType: 'application/json', temperature: 0.4 } })
-    }
-  };
-}
-function montaReqGroq(modelo, chaveApi, system, contents) {
-  return {
-    url: 'https://api.groq.com/openai/v1/chat/completions',
-    init: {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + chaveApi },
-      body: JSON.stringify({ model: modelo, messages: contentsParaMessages(system, contents), response_format: { type: 'json_object' }, temperature: 0.4 })
-    }
-  };
-}
-function textoGemini(j) {
-  try { return (j.candidates[0].content.parts || []).map(function (p) { return p.text || ''; }).join(''); } catch (e) { return ''; }
-}
-function textoGroq(j) {
-  try { return j.choices[0].message.content || ''; } catch (e) { return ''; }
-}
-function erroAmigavel(status, corpo) {
-  corpo = String(corpo || '');
-  if (status === 404) return 'Modelo da IA não encontrado. Troque o modelo em Ajustes › IA (ex.: gemini-2.5-flash).';
-  if (status === 429) return 'Limite grátis da IA atingido. Espere alguns minutos e tente de novo.';
-  if (status === 401 || status === 403 || /api[_ ]?key/i.test(corpo)) return 'Chave da IA inválida. Confira em Ajustes › IA.';
-  if (status === 0) return 'Sem internet. A agenda funciona, mas a IA e o envio não.';
-  return 'A IA não respondeu. Tente de novo.';
-}
-function extraiJSON(texto) {
-  var t = String(texto == null ? '' : texto).trim(), obj = null;
-  var tentativas = [t, t.replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/, '').trim()];
-  var a = t.indexOf('{'), b = t.lastIndexOf('}');
-  if (a >= 0 && b > a) tentativas.push(t.slice(a, b + 1));
-  for (var i = 0; i < tentativas.length && !obj; i++) {
-    try { var o = JSON.parse(tentativas[i]); if (ehObj(o)) obj = o; } catch (e) { /* tenta a próxima */ }
-  }
-  if (!obj || typeof obj.resposta !== 'string') return { resposta: t, acao: { tipo: 'nenhuma' } };
-  var ac = ehObj(obj.acao) ? obj.acao : { tipo: 'nenhuma' };
-  if (TIPOS_ACAO.indexOf(ac.tipo) < 0) ac = { tipo: 'nenhuma' };
-  if (ac.tipo !== 'nenhuma') ac = { tipo: ac.tipo, data: ac.data, hora: Number(ac.hora), campo: Number(ac.campo) };
-  return { resposta: obj.resposta, acao: ac };
-}
 function validaAcao(db, acao, clienteId, hoje) {
   if (!acao || acao.tipo === 'nenhuma') return { ok: true };
   if (TIPOS_ACAO.indexOf(acao.tipo) < 0) return { ok: false, erro: 'Ação desconhecida.' };
@@ -595,77 +514,280 @@ function parseGrade(txt) {
     .sort(function (a, b) { return a - b; });
 }
 
-/* ---- WhatsApp / Evolution ---- */
-function urlWhatsApp(numero, texto) { return 'https://wa.me/' + normalizaTelefone(numero) + '?text=' + encodeURIComponent(texto); }
-function evoConfigurada(evo) { return !!(evo && String(evo.url || '').trim() && String(evo.apikey || '').trim() && String(evo.instancia || '').trim()); }
-function evoUrlOk(u) { return /^https:\/\/[^\s/]+/i.test(String(u || '').trim()); }
-function baseEvo(evo) { return String(evo.url || '').trim().replace(/\/+$/, ''); }
-function montaEnvioEvo(evo, numero, texto) {
+
+/* ===== Motora Teste v3: configuração e ponte com o Supabase (puro) ===== */
+var CFG_PADRAO = {"versao":2,"ia_ligada":false,"modo":"sugerir","horario_ia":{"modo":"sempre","janelas":{"0":null,"1":{"inicio":"08:00","fim":"23:00"},"2":{"inicio":"08:00","fim":"23:00"},"3":{"inicio":"08:00","fim":"23:00"},"4":{"inicio":"08:00","fim":"23:00"},"5":{"inicio":"08:00","fim":"23:00"},"6":{"inicio":"07:00","fim":"12:00"}}},"atender":"todos_menos_ignorados","ignorados":[],"atraso_resposta_seg":{"min":8,"max":25},"pausa_quando_dono_responde_min":30,"falar_com_dono":{"palavras":["falar com o dono","falar com voce","atendente","pessoa de verdade"],"mensagem":"Certo! Vou chamar o {dono}, ele já te responde.","pausa_min":240},"limite_respostas_por_contato_hora":10,"mensagem_fora_do_horario":"","boas_vindas_desconhecidos":"","cadastrar_desconhecidos":true,"tom_de_voz":"simpático, curto e direto, como conversa de WhatsApp","usar_emojis":true,"assinatura":"","nome_dono":"","nome_negocio":"Campos de Futebol","endereco":"","link_mapa":"","precos":{"avulso":null,"fixo":null,"especiais":[],"observacao":""},"pagamento":{"texto":"","pix_chave":"","sinal_obrigatorio":false,"sinal_valor":null},"antecedencia_minima_reserva_h":2,"max_dias_reserva_frente":14,"permitir_ia_reservar":false,"permitir_ia_cancelar":false,"permitir_ia_confirmar":true,"cancelamento_regra_h":24,"confirmacao_auto":false,"confirmacao_manha_hora":"09:00","confirmacao_tarde_hora":"15:00","confirmacao_ultima_hora":"21:00","liberar_fixo_sem_resposta":{"ligado":false,"hora":"20:00"},"modelos":{"manha":"Bom dia {nome}! Confirma o futebol amanhã ({dia}) às {hora}h no {campo}?","tarde":"Oi {nome}, ainda não tive retorno: amanhã ({dia}) {hora}h no {campo}, confirma?","reserva_confirmada":"Fechado, {nome}! {dia} às {hora}h no {campo} está reservado. {pagamento}","cancelamento":"Pronto, {nome}, cancelei {dia} às {hora}h no {campo}.","confirmou":"Show, {nome}! Confirmado amanhã às {hora}h no {campo}.","nao_vem":"Tudo bem, {nome}! Liberamos o horário de amanhã. Até a próxima!"},"notificar_dono":{"falar_com_dono":true,"nova_reserva":true,"cancelamento":true,"nao_vem":true,"erro_ia":true,"robo_offline":true,"sugestao_nova":true},"grade":{"0":[],"1":[19,20,21,22],"2":[20,21,22],"3":[19,20,21,22],"4":[20,21,22],"5":[17,18,19,20,21,22],"6":[8,9]},"campos":{"1":"Campo 1","2":"Campo 2"},"duracao_min":60,"dias_livres_no_prompt":7,"ia":{"provedor":"gemini","gemini_modelo":"gemini-2.5-flash","groq_modelo":"llama-3.3-70b-versatile","usar_reserva_groq":true,"temperatura":0.4,"max_tokens":600,"historico_msgs":12,"exemplos_chars":6000,"timeout_seg":25},"robo":{"pausa_envio_seg":{"min":3,"max":9},"max_envios_por_minuto":8}};
+var REGRAS_INICIAIS = [
+  'Clientes fixos têm prioridade. Avulsos só podem reservar horários livres.',
+  'Domingo fechado.',
+  'Se o preço não estiver informado, NUNCA invente valor: diga que vai confirmar.',
+  'Em dúvida, pergunte ou diga que vai confirmar com o dono.',
+  'Não fale de assuntos que não sejam os campos de futebol.'
+];
+var PAUSA_SEMPRE = '2099-01-01T00:00:00.000Z';
+
+/* junta objetos recursivamente; listas e valores simples de "extra" substituem os de "base" */
+function mescla(base, extra) {
+  if (!ehObj(base)) base = {};
+  var out = clone(base);
+  if (!ehObj(extra)) return out;
+  Object.keys(extra).forEach(function (k) {
+    var v = extra[k];
+    if (v === undefined) return;
+    out[k] = ehObj(v) && ehObj(out[k]) ? mescla(out[k], v) : clone(v);
+  });
+  return out;
+}
+function mesclaCfg(dados) {
+  var c = mescla(CFG_PADRAO, ehObj(dados) ? dados : {});
+  /* janelas null são válidas (IA calada no dia): preserva */
+  if (ehObj(dados) && ehObj(dados.horario_ia) && ehObj(dados.horario_ia.janelas)) {
+    Object.keys(dados.horario_ia.janelas).forEach(function (d) { c.horario_ia.janelas[d] = clone(dados.horario_ia.janelas[d]); });
+  }
+  return c;
+}
+function pegaCaminho(o, cam) {
+  var p = String(cam).split('.');
+  for (var i = 0; i < p.length; i++) { if (o == null) return undefined; o = o[p[i]]; }
+  return o;
+}
+function poeCaminho(o, cam, v) {
+  var p = String(cam).split('.'), x = o;
+  for (var i = 0; i < p.length - 1; i++) { if (!ehObj(x[p[i]])) x[p[i]] = {}; x = x[p[i]]; }
+  x[p[p.length - 1]] = v;
+  return o;
+}
+function horaOk(s) { return /^([01]\d|2[0-3]):[0-5]\d$/.test(String(s || '')); }
+function parseNums(txt, min, max) {
+  var vistos = {};
+  return String(txt == null ? '' : txt).split(/[^\d]+/).filter(Boolean).map(Number)
+    .filter(function (n) { if (n < min || n > max || vistos[n]) return false; vistos[n] = 1; return true; })
+    .sort(function (a, b) { return a - b; });
+}
+function numOuNulo(s) {
+  var t = String(s == null ? '' : s).trim().replace(/^R\$\s*/i, '').replace(',', '.');
+  if (t === '') return null;
+  var n = Number(t);
+  return isFinite(n) ? n : null;
+}
+function isoParaData(iso) { var d = new Date(iso); return isNaN(d.getTime()) ? '' : dataLocal(d); }
+function linhaChave(data, hora, campo) { return chave(String(data).slice(0, 10), hora, campo); }
+
+/* Linhas das tabelas -> db no formato antigo (as funções acima continuam valendo).
+   linhas: {config:{dados,gemini_key,groq_key} | configDados, regras, clientes, horarios_fixos, reservas, excecoes, confirmacoes, conversas_exemplo} */
+function montaDb(linhas) {
+  linhas = linhas || {};
+  var linhaCfg = ehObj(linhas.config) ? linhas.config : { dados: linhas.configDados || {} };
+  var cfg = mesclaCfg(linhaCfg.dados);
+  var regras = (Array.isArray(linhas.regras) ? linhas.regras : []).map(function (r, i) {
+    return { id: r.id != null ? r.id : 'n' + i, texto: String(r.texto || ''), ativa: r.ativa !== false, ordem: Number(r.ordem) || 0 };
+  }).sort(function (a, b) { return a.ordem - b.ordem || String(a.id).localeCompare(String(b.id)); });
+  var fixosPor = {};
+  (linhas.horarios_fixos || []).forEach(function (h) {
+    (fixosPor[h.cliente_id] = fixosPor[h.cliente_id] || []).push({ dia: Number(h.dia), hora: Number(h.hora), campo: Number(h.campo) });
+  });
+  var clientes = (linhas.clientes || []).map(function (c) {
+    var fx = (fixosPor[c.id] || []).sort(function (a, b) { return a.dia - b.dia || a.hora - b.hora || a.campo - b.campo; });
+    return { id: String(c.id), nome: String(c.nome || ''), telefone: String(c.telefone || ''), tipo: c.tipo === 'fixo' ? 'fixo' : 'avulso',
+      fixos: c.tipo === 'fixo' ? fx : [], observacao: String(c.observacao || ''), ignorar: !!c.ignorar, origem: c.origem || 'dono', historico: [] };
+  });
+  var reservas = (linhas.reservas || []).map(function (r) {
+    return { id: String(r.id), data: String(r.data).slice(0, 10), hora: Number(r.hora), campo: Number(r.campo), clienteId: String(r.cliente_id),
+      pago: !!r.pago, origem: r.origem || 'dono', criadoEm: r.criado_em || null };
+  });
+  var excecoes = (linhas.excecoes || []).map(function (e) {
+    return { data: String(e.data).slice(0, 10), hora: Number(e.hora), campo: Number(e.campo), clienteId: String(e.cliente_id) };
+  });
+  var confirmacoes = {};
+  (linhas.confirmacoes || []).forEach(function (c) {
+    confirmacoes[linhaChave(c.data, c.hora, c.campo)] = { status: c.status || 'pendente', manhaEm: c.manha_em || null, tardeEm: c.tarde_em || null,
+      liberadoAuto: !!c.liberado_auto };
+  });
+  var conversas = (linhas.conversas_exemplo || []).map(function (x) {
+    return { id: x.id, nomeArquivo: String(x.nome_arquivo || 'conversa'), texto: String(x.texto || ''), importadoEm: x.importado_em || null };
+  });
   return {
-    url: baseEvo(evo) + '/message/sendText/' + encodeURIComponent(String(evo.instancia).trim()),
-    init: { method: 'POST', headers: { apikey: String(evo.apikey).trim(), 'Content-Type': 'application/json' }, body: JSON.stringify({ number: normalizaTelefone(numero), text: texto }) }
+    versao: 1,
+    config: {
+      nomeDono: cfg.nome_dono, preco: cfg.precos.observacao || '', regras: regras.filter(function (r) { return r.ativa; }).map(function (r) { return r.texto; }).join('\n'),
+      grade: cfg.grade, campos: cfg.campos, msgManha: cfg.modelos.manha, msgTarde: cfg.modelos.tarde,
+      ia: { geminiKey: linhaCfg.gemini_key || '', geminiModel: cfg.ia.gemini_modelo, groqKey: linhaCfg.groq_key || '', groqModel: cfg.ia.groq_modelo }
+    },
+    cfg: cfg, regras: regras, clientes: clientes, reservas: reservas, excecoes: excecoes, confirmacoes: confirmacoes,
+    conversas: conversas, exemplos: conversas.map(function (c) { return { nomeArquivo: c.nomeArquivo, texto: c.texto }; }), ultimoBackup: 0
   };
 }
-function urlConectarEvo(evo) { return baseEvo(evo) + '/instance/connect/' + encodeURIComponent(String(evo.instancia).trim()); }
-function extraiQR(j) {
-  if (!ehObj(j)) return null;
-  if ((ehObj(j.instance) && j.instance.state === 'open') || j.state === 'open') return { conectado: true };
-  var b = (typeof j.base64 === 'string' && j.base64) || (ehObj(j.qrcode) && typeof j.qrcode.base64 === 'string' && j.qrcode.base64) || '';
-  if (!b) return null;
-  if (b.indexOf('data:') !== 0) b = 'data:image/png;base64,' + b;
-  return { qr: b };
+
+/* db antigo (localStorage 'campos_v1' ou backup .json) -> linhas para gravar no Supabase */
+function paraLinhas(dbAntigo) {
+  var d = mesclaDefaults(dbAntigo), c = d.config;
+  var clientes = [], horarios = [], reservas = [], excecoes = [], confirmacoes = [], ids = {}, tels = {}, slots = {};
+  d.clientes.forEach(function (x) {
+    if (!ehObj(x) || typeof x.id !== 'string' || !x.id || ids[x.id]) return;
+    ids[x.id] = 1;
+    var tel = normalizaTelefone(x.telefone);
+    if (tel && tels[tel]) tel = ''; else if (tel) tels[tel] = 1;
+    var tipo = x.tipo === 'fixo' ? 'fixo' : 'avulso';
+    clientes.push({ id: x.id, nome: String(x.nome || '').trim() || 'Sem nome', telefone: tel, tipo: tipo, observacao: '', ignorar: false, origem: 'migracao' });
+    if (tipo === 'fixo') (Array.isArray(x.fixos) ? x.fixos : []).forEach(function (f) {
+      var dia = Number(f.dia), hora = Number(f.hora), campo = Number(f.campo), k = dia + '|' + hora + '|' + campo;
+      if (!(dia >= 0 && dia <= 6 && hora >= 0 && hora <= 23 && campo >= 1 && campo <= 9) || slots[k]) return;
+      slots[k] = 1; horarios.push({ cliente_id: x.id, dia: dia, hora: hora, campo: campo });
+    });
+  });
+  var vistosR = {};
+  d.reservas.forEach(function (r) {
+    var k = chave(r.data, r.hora, r.campo);
+    if (!dataValida(r.data) || !ids[r.clienteId] || vistosR[k]) return;
+    vistosR[k] = 1;
+    reservas.push({ id: String(r.id || ('r' + k.replace(/\W/g, ''))), data: r.data, hora: Number(r.hora), campo: Number(r.campo), cliente_id: r.clienteId, pago: !!r.pago, origem: 'migracao' });
+  });
+  var vistosE = {};
+  d.excecoes.forEach(function (e) {
+    var k = chave(e.data, e.hora, e.campo);
+    if (!dataValida(e.data) || !ids[e.clienteId] || vistosE[k]) return;
+    vistosE[k] = 1;
+    excecoes.push({ data: e.data, hora: Number(e.hora), campo: Number(e.campo), cliente_id: e.clienteId });
+  });
+  Object.keys(d.confirmacoes).forEach(function (k) {
+    var a = k.split('|'), st = (d.confirmacoes[k] || {}).status;
+    if (!dataValida(a[0]) || ['pendente', 'manha', 'tarde', 'confirmado', 'nao_vem'].indexOf(st) < 0) return;
+    var f = fixoDe(d, a[0], Number(a[1]), Number(a[2]));
+    confirmacoes.push({ data: a[0], hora: Number(a[1]), campo: Number(a[2]), cliente_id: f && ids[f.id] ? f.id : null, status: st });
+  });
+  var conversas = d.conversas.filter(ehObj).map(function (x) { return { nome_arquivo: String(x.nomeArquivo || 'conversa'), texto: String(x.texto || '') }; });
+  var regras = String(c.regras || '').split(/\r?\n/).map(function (l) { return l.trim(); }).filter(Boolean)
+    .map(function (t, i) { return { texto: t, ativa: true, ordem: i + 1 }; });
+  var grade = {};
+  [0, 1, 2, 3, 4, 5, 6].forEach(function (dia) { grade[dia] = (c.grade[dia] || []).map(Number).filter(function (h) { return h >= 0 && h <= 23; }); });
+  var campos = {};
+  Object.keys(c.campos || {}).forEach(function (k) { if (Number(k) >= 1 && Number(k) <= 9) campos[k] = String(c.campos[k] || ('Campo ' + k)); });
+  var configDados = {
+    nome_dono: String(c.nomeDono || ''), precos: { observacao: String(c.preco || '') },
+    modelos: { manha: String(c.msgManha || CFG_PADRAO.modelos.manha), tarde: String(c.msgTarde || CFG_PADRAO.modelos.tarde) },
+    grade: grade, campos: campos,
+    ia: { gemini_modelo: (c.ia && c.ia.geminiModel) || CFG_PADRAO.ia.gemini_modelo, groq_modelo: (c.ia && c.ia.groqModel) || CFG_PADRAO.ia.groq_modelo }
+  };
+  return {
+    clientes: clientes, horarios_fixos: horarios, reservas: reservas, excecoes: excecoes, confirmacoes: confirmacoes,
+    conversas_exemplo: conversas, regras: regras, configDados: configDados,
+    chaves: { gemini_key: String((c.ia && c.ia.geminiKey) || '').trim(), groq_key: String((c.ia && c.ia.groqKey) || '').trim() }
+  };
 }
 
+/* Antes de gravar a migração: cliente antigo com o mesmo telefone de um que já existe no banco passa a usar o id do banco.
+   Também tira regras e conversas que já existem (mesmo texto / mesmo nome de arquivo). */
+function ajustaMigracao(linhas, existentes) {
+  existentes = existentes || {};
+  var porTel = {}, idsBanco = {}, mapa = {};
+  (existentes.clientes || []).forEach(function (c) { idsBanco[c.id] = 1; if (c.telefone) porTel[c.telefone] = c.id; });
+  var out = clone(linhas);
+  out.clientes = out.clientes.filter(function (c) {
+    var outro = c.telefone && porTel[c.telefone];
+    if (outro && outro !== c.id) { mapa[c.id] = outro; return false; }
+    return true;
+  });
+  function troca(x) { if (x.cliente_id && mapa[x.cliente_id]) x.cliente_id = mapa[x.cliente_id]; return x; }
+  ['horarios_fixos', 'reservas', 'excecoes', 'confirmacoes'].forEach(function (t) { out[t] = out[t].map(troca); });
+  var textos = {}, arqs = {}, maxOrdem = 0;
+  (existentes.regras || []).forEach(function (r) { textos[String(r.texto).trim()] = 1; maxOrdem = Math.max(maxOrdem, Number(r.ordem) || 0); });
+  (existentes.conversas_exemplo || []).forEach(function (c) { arqs[c.nome_arquivo] = 1; });
+  out.regras = out.regras.filter(function (r) { return !textos[r.texto]; }).map(function (r, i) { return { texto: r.texto, ativa: true, ordem: maxOrdem + i + 1 }; });
+  out.conversas_exemplo = out.conversas_exemplo.filter(function (c) { return !arqs[c.nome_arquivo]; });
+  out.mapaIds = mapa;
+  return out;
+}
+
+/* ---- painel ---- */
+function estadoRobo(robo, agoraMs) {
+  if (!robo || !robo.online_em) return 'nunca';
+  var idade = agoraMs - Date.parse(robo.online_em);
+  if (!(idade < 150000)) return 'offline';
+  if (robo.conectado) return 'online';
+  return robo.qr ? 'qr' : 'conectando';
+}
+function qrSeguro(qr) { return /^data:image\/(png|jpeg|gif|webp);base64,[A-Za-z0-9+/=]+$/.test(String(qr || '')) ? qr : ''; }
+function contadoresHoje(mensagens, reservas, hojeS) {
+  var c = { recebidas: 0, respondidas: 0, reservas: 0, sugeridas: 0 };
+  (mensagens || []).forEach(function (m) {
+    if (m.direcao === 'saida' && m.status === 'sugerida') c.sugeridas++;
+    if (m.direcao === 'entrada' && isoParaData(m.criada_em) === hojeS) c.recebidas++;
+    if (m.direcao === 'saida' && m.status === 'enviada' && isoParaData(m.enviada_em || m.criada_em) === hojeS) c.respondidas++;
+  });
+  (reservas || []).forEach(function (r) { if (r.criadoEm && isoParaData(r.criadoEm) === hojeS) c.reservas++; });
+  return c;
+}
+function descreveAcao(db, ac) {
+  if (!ehObj(ac) || !ac.tipo || ac.tipo === 'nenhuma') return '';
+  var NOMES = { reservar_avulso: 'Reservar avulso', nao_vem: 'Marcar "não vem"', confirmar: 'Marcar confirmado', cancelar: 'Cancelar reserva' };
+  var quando = dataValida(ac.data) ? nomeDia(ac.data) + ' ' + formataDataBR(ac.data) : '?';
+  return (NOMES[ac.tipo] || ac.tipo) + ': ' + quando + ' · ' + ac.hora + 'h · ' + nomeCampo(db, ac.campo);
+}
+function pausaAte(opcao, agoraMs) {
+  var h = { '1h': 1, '4h': 4, '24h': 24 }[opcao];
+  if (opcao === 'sempre') return PAUSA_SEMPRE;
+  if (!h) return null;
+  return new Date(agoraMs + h * 3600000).toISOString();
+}
+function estaPausado(contato, agoraMs) { return !!(contato && contato.pausado_ate && Date.parse(contato.pausado_ate) > agoraMs); }
+function nomeContato(db, contato) {
+  if (!contato) return '';
+  var cli = contato.cliente_id ? clientePorId(db, contato.cliente_id) : null;
+  return (cli && cli.nome) || contato.nome_contato || ('+' + contato.telefone);
+}
+function textoDaConfirmacao(db, item) {
+  var cfg = db.cfg || CFG_PADRAO;
+  return preencheModelo(item.status === 'pendente' ? cfg.modelos.manha : cfg.modelos.tarde, {
+    nome: (item.cliente.nome || '').split(' ')[0], dia: DIAS_LONGO[diaSemana(item.data)] + ' ' + formataDataBR(item.data),
+    hora: item.hora, campo: nomeCampo(db, item.campo), dono: cfg.nome_dono, endereco: cfg.endereco, pagamento: (cfg.pagamento || {}).texto
+  });
+}
+
+/* telefone: 55 + DDD + 9 + 8 dígitos -> tira o 9 (o WhatsApp às vezes entrega sem ele) */
+function chaveTelefone(tel) {
+  var d = normalizaTelefone(tel);
+  return /^55\d{2}9\d{8}$/.test(d) ? d.slice(0, 4) + d.slice(5) : d;
+}
+var chaveTel = chaveTelefone;
+function formataTel(tel) {
+  var d = normalizaTelefone(tel);
+  var m = d.match(/^55(\d{2})(\d{4,5})(\d{4})$/);
+  return m ? '(' + m[1] + ') ' + m[2] + '-' + m[3] : (d ? '+' + d : '');
+}
 if (typeof module !== 'undefined') module.exports = {
-  REGRAS_PADRAO: REGRAS_PADRAO, DIAS_CURTO: DIAS_CURTO, DIAS_LONGO: DIAS_LONGO, TIPOS_ACAO: TIPOS_ACAO,
-  defaults: defaults, clone: clone, mesclaDefaults: mesclaDefaults, esc: esc,
-  dataLocal: dataLocal, parseData: parseData, dataValida: dataValida, somaDias: somaDias, diaSemana: diaSemana, nomeDia: nomeDia,
-  formataDataBR: formataDataBR, chave: chave, nomeCampo: nomeCampo, listaCampos: listaCampos,
-  horariosDoDia: horariosDoDia, clientePorId: clientePorId, fixoDe: fixoDe, temExcecao: temExcecao, reservaEm: reservaEm,
-  statusDe: statusDe, ocupante: ocupante, livresProximosDias: livresProximosDias, conflitoFixo: conflitoFixo,
-  normalizaTelefone: normalizaTelefone, telefoneOk: telefoneOk, preencheModelo: preencheModelo, periodoDoDia: periodoDoDia,
-  proximoStatus: proximoStatus, cortaConversa: cortaConversa, fixosDeAmanha: fixosDeAmanha, textoConfirmacao: textoConfirmacao,
-  montaPrompt: montaPrompt, montaContents: montaContents, contentsParaMessages: contentsParaMessages,
-  montaReqGemini: montaReqGemini, montaReqGroq: montaReqGroq, textoGemini: textoGemini, textoGroq: textoGroq,
-  erroAmigavel: erroAmigavel, extraiJSON: extraiJSON, validaAcao: validaAcao, aplicarAcao: aplicarAcao,
-  marcarConfirmado: marcarConfirmado, registrarEnvio: registrarEnvio, marcarNaoVem: marcarNaoVem, desfazerNaoVem: desfazerNaoVem,
-  reservarAvulso: reservarAvulso, marcarPago: marcarPago, cancelarReserva: cancelarReserva, salvarCliente: salvarCliente,
-  removerCliente: removerCliente, addHistorico: addHistorico, limpaAntigos: limpaAntigos, validaBackup: validaBackup,
-  parseGrade: parseGrade, urlWhatsApp: urlWhatsApp, evoConfigurada: evoConfigurada, montaEnvioEvo: montaEnvioEvo,
-  urlConectarEvo: urlConectarEvo, extraiQR: extraiQR, evoUrlOk: evoUrlOk
+  defaults: defaults, clone: clone, ehObj: ehObj, mesclaDefaults: mesclaDefaults, esc: esc, p2: p2, dataLocal: dataLocal, parseData: parseData, dataValida: dataValida, somaDias: somaDias, diaSemana: diaSemana, nomeDia: nomeDia, formataDataBR: formataDataBR, chave: chave, nomeCampo: nomeCampo, listaCampos: listaCampos, horariosDoDia: horariosDoDia, clientePorId: clientePorId, fixoDe: fixoDe, temExcecao: temExcecao, reservaEm: reservaEm, statusDe: statusDe, ocupante: ocupante, livresProximosDias: livresProximosDias, conflitoFixo: conflitoFixo, normalizaTelefone: normalizaTelefone, telefoneOk: telefoneOk, preencheModelo: preencheModelo, periodoDoDia: periodoDoDia, proximoStatus: proximoStatus, cortaConversa: cortaConversa, fixosDeAmanha: fixosDeAmanha, textoConfirmacao: textoConfirmacao, validaAcao: validaAcao, novoId: novoId, marcarConfirmado: marcarConfirmado, registrarEnvio: registrarEnvio, marcarNaoVem: marcarNaoVem, desfazerNaoVem: desfazerNaoVem, reservarAvulso: reservarAvulso, marcarPago: marcarPago, cancelarReserva: cancelarReserva, aplicarAcao: aplicarAcao, salvarCliente: salvarCliente, removerCliente: removerCliente, addHistorico: addHistorico, limpaAntigos: limpaAntigos, validaBackup: validaBackup, parseGrade: parseGrade, mescla: mescla, mesclaCfg: mesclaCfg, pegaCaminho: pegaCaminho, poeCaminho: poeCaminho, horaOk: horaOk, parseNums: parseNums, numOuNulo: numOuNulo, isoParaData: isoParaData, linhaChave: linhaChave, montaDb: montaDb, paraLinhas: paraLinhas, ajustaMigracao: ajustaMigracao, estadoRobo: estadoRobo, qrSeguro: qrSeguro, contadoresHoje: contadoresHoje, descreveAcao: descreveAcao, pausaAte: pausaAte, estaPausado: estaPausado, nomeContato: nomeContato, textoDaConfirmacao: textoDaConfirmacao, chaveTelefone: chaveTelefone, formataTel: formataTel, REGRAS_PADRAO: REGRAS_PADRAO, DIAS_CURTO: DIAS_CURTO, DIAS_LONGO: DIAS_LONGO, TIPOS_ACAO: TIPOS_ACAO, CFG_PADRAO: CFG_PADRAO, REGRAS_INICIAIS: REGRAS_INICIAIS, PAUSA_SEMPRE: PAUSA_SEMPRE, chaveTel: chaveTel
 };
 </script>
 <script>
-/* ===== Interface (impura): DOM, localStorage, rede ===== */
+/* ===== Interface (impura): DOM, Supabase, rede ===== */
 (function () {
   'use strict';
+  var SB_URL = 'https://vsfvwyycacfofnwfpajm.supabase.co';
+  var SB_KEY = 'sb_publishable_a8HjZV7ATWVr1cvu6cDwjA_G7Ii4zwW';
+  var URL_ROBO = 'https://github.com/thiagogb20-lang/motora-teste/archive/refs/heads/main.zip';
   var CHAVE_LS = 'campos_v1';
-  var db = carregar();
-  var est = { tela: 'agenda', data: dataLocal(new Date()), busca: '', iaCli: '', iaMsg: '', iaResp: '', iaAcao: null, iaCarregando: false, editCli: null, qr: null };
-  var toastTimer = null, desfazerFn = null;
 
+  var sb = null, canal = null, timerPoll = null, timerRT = null;
+  var L = vazioL();
+  var db = montaDb(L);
+  var est = {
+    fase: 'carregando', tela: 'inicio', data: dataLocal(new Date()), busca: '', editCli: null,
+    conv: null, msgsConv: [], resp: '', editMsg: null, editTxt: '', editRegra: null, novaRegra: '',
+    simTexto: '', simTel: '', simRes: null, simCarregando: false, codigo: '', email: '', erroLogin: '',
+    migr: null, ocupado: false, sujo: false
+  };
+  var toastTimer = null, desfazerFn = null, acoesTemp = {};
+
+  function vazioL() {
+    return { config: { dados: {}, gemini_key: '', groq_key: '' }, regras: [], clientes: [], horarios_fixos: [], reservas: [], excecoes: [],
+      confirmacoes: [], conversas_exemplo: [], contatos: [], sugeridas: [], entradas: {}, msgsHoje: [], avisos: [], robo: null };
+  }
   function $(id) { return document.getElementById(id); }
   function agora() { return new Date(); }
+  function agoraIso() { return new Date().toISOString(); }
+  function cfg() { return db.cfg; }
 
-  /* ---- armazenamento ---- */
-  function carregar() {
-    try {
-      var raw = localStorage.getItem(CHAVE_LS);
-      var d = mesclaDefaults(raw ? JSON.parse(raw) : null);
-      return limpaAntigos(d, new Date());
-    } catch (e) { return defaults(); }
-  }
-  function salvar() {
-    try { localStorage.setItem(CHAVE_LS, JSON.stringify(db)); return true; }
-    catch (e) { toast('⚠ Não consegui salvar no celular. Memória cheia?', true); return false; }
-  }
-  function muda(novo, msg, podeDesfazer) {
-    var antigo = db;
-    db = novo; salvar(); render();
-    if (msg) toast(msg, false, podeDesfazer ? function () { db = antigo; salvar(); render(); toast('Desfeito ✓'); } : null);
-  }
-
-  /* ---- toast ---- */
+  /* ---------- toast e folha ---------- */
   function toast(txt, erro, desfazer) {
     var t = $('toast'), b = $('toastBt');
     $('toastTx').textContent = txt;
@@ -676,71 +798,400 @@ if (typeof module !== 'undefined') module.exports = {
     clearTimeout(toastTimer);
     if (!erro) toastTimer = setTimeout(function () { t.classList.remove('on'); }, desfazer ? 5000 : 3000);
   }
-  $('toastBt').addEventListener('click', function () {
-    $('toast').classList.remove('on');
-    var f = desfazerFn; desfazerFn = null; if (f) f();
-  });
-  $('toast').addEventListener('click', function (e) { if (e.target === this) this.classList.remove('on'); });
-
-  /* ---- folha inferior ---- */
+  $('toastBt').addEventListener('click', function () { $('toast').classList.remove('on'); var f = desfazerFn; desfazerFn = null; if (f) f(); });
   function abreFolha(html) {
     $('folha').innerHTML = '<div class="alca"></div>' + html + '<button class="btn sec" data-a="fechaFolha" style="margin-top:12px">Fechar</button>';
     $('folha').classList.add('aberta'); $('fundo').classList.add('aberta');
   }
-  function fechaFolha() { $('folha').classList.remove('aberta'); $('fundo').classList.remove('aberta'); }
+  function fechaFolha() { $('folha').classList.remove('aberta'); $('fundo').classList.remove('aberta'); if (est.sujo) renderSuave(); }
   $('fundo').addEventListener('click', fechaFolha);
-  function confirma(pergunta, rotulo, fn) {
-    acoesTemp.confirmaOk = function () { fechaFolha(); fn(); };
-    abreFolha('<h3>Tem certeza?</h3><p>' + esc(pergunta) + '</p><button class="btn perigo" data-a="confirmaOk">' + esc(rotulo) + '</button>');
+  function confirma(pergunta, rotulo, fn, perigo, extraHtml) {
+    acoesTemp.confirmaOk = function () { fechaFolha(); return fn(); };
+    abreFolha('<h3>Tem certeza?</h3><p>' + esc(pergunta) + '</p>' + (extraHtml || '') + '<button class="btn' + (perigo === false ? '' : ' perigo') + '" data-a="confirmaOk">' + esc(rotulo) + '</button>');
   }
-  var acoesTemp = {};
 
-  /* ---- navegação ---- */
-  var TITULOS = { agenda: 'Agenda', clientes: 'Clientes', confirmar: 'Confirmar', ia: 'Atendimento IA', ajustes: 'Ajustes' };
-  $('barra').addEventListener('click', function (e) {
-    var b = e.target.closest('button[data-t]'); if (!b) return;
-    est.tela = b.getAttribute('data-t'); est.editCli = null; fechaFolha(); render(); window.scrollTo(0, 0);
-  });
-
-  function render() {
-    var t = est.tela;
-    $('titulo').textContent = est.editCli ? (est.editCli.id ? 'Editar cliente' : 'Novo cliente') : TITULOS[t];
-    $('acaoTopo').innerHTML = '';
-    Array.prototype.forEach.call(document.querySelectorAll('#barra button'), function (b) {
-      if (b.getAttribute('data-t') === t) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
-    });
-    var html = '';
-    if (t === 'agenda') html = telaAgenda();
-    else if (t === 'clientes') html = est.editCli ? telaFormCliente() : telaClientes();
-    else if (t === 'confirmar') html = telaConfirmar();
-    else if (t === 'ia') html = telaIA();
-    else html = telaAjustes();
-    $('tela').innerHTML = html;
-    if (t === 'clientes' && !est.editCli) {
-      var bx = $('busca'); if (bx) bx.addEventListener('input', function () { est.busca = bx.value; renderListaClientes(); });
+  /* ---------- erros amigáveis ---------- */
+  function msgErro(e) {
+    var m = String((e && (e.message || e.erro)) || '');
+    var code = e && e.code;
+    if (code === '23505') return 'Isso já existe (horário ou telefone repetido).';
+    if (code === '42501' || /row-level|permission denied|sem permissao/i.test(m)) return 'Sem permissão: esta conta não é a do dono.';
+    if (/Failed to fetch|NetworkError|Load failed|fetch/i.test(m) || (typeof navigator !== 'undefined' && navigator.onLine === false)) return 'Sem internet. Tente de novo.';
+    if (/Invalid login credentials/i.test(m)) return 'Email ou senha errados.';
+    if (/already registered|already exists/i.test(m)) return 'Esse email já tem conta. Use Entrar.';
+    if (/Password should be|at least 6/i.test(m)) return 'A senha precisa ter pelo menos 6 letras ou números.';
+    if (/Email not confirmed/i.test(m)) return 'Confirme seu email: abra o link que chegou na sua caixa de entrada.';
+    if (/Signups not allowed|signup.*disabled/i.test(m)) return 'Novos cadastros estão desligados.';
+    return m || 'Algo deu errado. Tente de novo.';
+  }
+  async function q(p) {
+    var r = await p;
+    if (r && r.error) throw r.error;
+    return r ? r.data : null;
+  }
+  async function invocar(corpo) {
+    var r = await sb.functions.invoke('robo', { body: corpo });
+    if (r.error) {
+      var msg = '';
+      try { var j = await r.error.context.json(); msg = j && j.erro; } catch (e) { /* sem corpo */ }
+      throw new Error(msg || 'Não consegui falar com o servidor. Tente de novo.');
+    }
+    if (r.data && r.data.ok === false) throw new Error(r.data.erro || 'O servidor recusou.');
+    return r.data || {};
+  }
+  async function faz(fn, okMsg, semRecarregar) {
+    if (est.ocupado) return;
+    est.ocupado = true;
+    try {
+      await fn();
+      if (!semRecarregar) await recarregar(true);
+      est.ocupado = false;
+      render();
+      if (okMsg) toast(okMsg);
+      return true;
+    } catch (e) {
+      est.ocupado = false;
+      toast('⚠ ' + msgErro(e), true);
+      return false;
     }
   }
 
-  /* ---- textos de ajuda ---- */
-  var TX_FAZ = '<h2>O que este app faz e não faz</h2><ul class="passos">' +
-    '<li>✗ <b>Não lê sozinho</b> as mensagens que chegam no WhatsApp. Copie a mensagem do cliente e cole na aba <b>IA</b>.</li>' +
-    '<li>✓ A IA <b>só escreve a resposta</b>. Você confere, pode mudar, e toca <b>Enviar</b>.</li>' +
-    '<li>✗ O app <b>não manda sozinho</b> as confirmações. Abra a aba <b>Confirmar</b> de manhã e à tarde.</li>' +
-    '<li>✓ A agenda funciona sem internet. Os dados ficam só neste celular.</li></ul>';
-  var TX_PRIV = '<div class="priv">🔒 <b>Privacidade:</b> as mensagens, nomes e conversas importadas são enviados ao Google (Gemini) ou ao Groq para gerar as respostas. ' +
-    'No plano grátis, o Google pode usar esses dados para melhorar os modelos. Antes de importar, apague do .txt o que for sensível (CPF, endereço, dados de pagamento).</div>';
-  function htmlGuia() {
-    return '<ol class="passos">' +
-      '<li><b>Pegue a chave grátis da IA:</b> abra <a class="lk" href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">aistudio.google.com/apikey</a>, entre com sua conta Google, toque em <b>Create API key</b>, copie a chave e cole em <b>Ajustes › IA</b>. Toque em Salvar.</li>' +
-      '<li><b>Ensine seu jeito de falar (opcional):</b> no WhatsApp, abra uma conversa com cliente › <b>⋮</b> › <b>Mais</b> › <b>Exportar conversa</b> › <b>Sem mídia</b> › salve em <b>Arquivos</b>. Depois, aqui em <b>Ajustes › IA</b>, toque em <b>Importar conversas</b> e escolha o arquivo.</li>' +
-      '<li><b>Cadastre os clientes fixos:</b> aba <b>Clientes</b> › <b>+</b> › tipo <b>Fixo</b> › escolha dia, hora e campo.</li></ol>';
+  /* ---------- carregar dados ---------- */
+  function inicioDoDiaIso() { var d = new Date(); d.setHours(0, 0, 0, 0); return d.toISOString(); }
+  async function carregaLeve() {
+    var r = await Promise.all([
+      q(sb.from('contatos').select('*').order('ultima_msg_em', { ascending: false, nullsFirst: false }).limit(200)),
+      q(sb.from('mensagens').select('*').eq('direcao', 'saida').eq('status', 'sugerida').order('criada_em', { ascending: false }).limit(50)),
+      q(sb.from('mensagens').select('id,direcao,status,criada_em,enviada_em').gte('criada_em', inicioDoDiaIso()).limit(3000)),
+      q(sb.from('avisos').select('*').eq('lido', false).order('criado_em', { ascending: false }).limit(50)),
+      q(sb.from('robo').select('*').eq('id', 1).maybeSingle())
+    ]);
+    L.contatos = r[0] || []; L.sugeridas = r[1] || []; L.msgsHoje = r[2] || []; L.avisos = r[3] || []; L.robo = r[4] || null;
+    var ids = L.sugeridas.map(function (m) { return m.responde_a; }).filter(function (x) { return x != null; });
+    L.entradas = {};
+    if (ids.length) (await q(sb.from('mensagens').select('id,texto').in('id', ids)) || []).forEach(function (m) { L.entradas[m.id] = m.texto; });
+    if (est.conv) await carregaConversa();
+  }
+  async function carregaTudo() {
+    var hoje = dataLocal(new Date());
+    var r = await Promise.all([
+      q(sb.from('config').select('*').eq('id', 1).maybeSingle()),
+      q(sb.from('regras').select('*').order('ordem', { ascending: true })),
+      q(sb.from('clientes').select('*')),
+      q(sb.from('horarios_fixos').select('*')),
+      q(sb.from('reservas').select('*').gte('data', somaDias(hoje, -60))),
+      q(sb.from('excecoes').select('*').gte('data', somaDias(hoje, -7))),
+      q(sb.from('confirmacoes').select('*').gte('data', somaDias(hoje, -7))),
+      q(sb.from('conversas_exemplo').select('*'))
+    ]);
+    L.config = r[0] || { dados: {}, gemini_key: '', groq_key: '' };
+    L.regras = r[1] || []; L.clientes = r[2] || []; L.horarios_fixos = r[3] || []; L.reservas = r[4] || [];
+    L.excecoes = r[5] || []; L.confirmacoes = r[6] || []; L.conversas_exemplo = r[7] || [];
+    await carregaLeve();
+  }
+  async function recarregar(tudo) {
+    if (!sb || est.fase !== 'app') return;
+    if (tudo) await carregaTudo(); else await carregaLeve();
+    db = montaDb(L);
+    atualizaBadges();
+  }
+  async function carregaConversa() {
+    var tel = est.conv;
+    var ms = await q(sb.from('mensagens').select('*').eq('telefone', tel).order('criada_em', { ascending: false }).limit(150));
+    if (est.conv === tel) est.msgsConv = (ms || []).slice().reverse();
+  }
+  /* atualização em segundo plano: não apaga o que a pessoa está digitando */
+  function editando() {
+    var a = document.activeElement;
+    return !!(a && (a.tagName === 'TEXTAREA' || a.tagName === 'INPUT' || a.tagName === 'SELECT') && ($('tela').contains(a) || $('folha').contains(a)));
+  }
+  var TELAS_VIVAS = { inicio: 1, conversas: 1, agenda: 1, confirmar: 1, robo: 1 };
+  function renderSuave() {
+    atualizaBadges();
+    if (!TELAS_VIVAS[est.tela] || est.editCli) return;
+    if (editando() || $('folha').classList.contains('aberta') || est.ocupado) { est.sujo = true; return; }
+    est.sujo = false;
+    var y = window.scrollY; render(); window.scrollTo(0, y);
+  }
+  async function atualizaFundo(tudo) {
+    try { await recarregar(tudo); renderSuave(); } catch (e) { /* tenta na próxima */ }
+  }
+  function ligaTempoReal() {
+    try {
+      if (canal) sb.removeChannel(canal);
+      var cb = function () { clearTimeout(timerRT); timerRT = setTimeout(function () { atualizaFundo(false); }, 700); };
+      canal = sb.channel('painel')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'mensagens' }, cb)
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'robo' }, cb)
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'avisos' }, cb)
+        .subscribe();
+    } catch (e) { /* o polling cobre */ }
+    clearInterval(timerPoll);
+    timerPoll = setInterval(function () { if (document.visibilityState === 'visible') atualizaFundo(false); }, 30000);
+  }
+  var hojeVisto = dataLocal(new Date());
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState !== 'visible') return;
+    var h = dataLocal(new Date());
+    if (h !== hojeVisto) { if (est.data === hojeVisto) est.data = h; hojeVisto = h; }
+    atualizaFundo(true);
+  });
+  document.addEventListener('focusout', function () { setTimeout(function () { if (est.sujo && !editando()) renderSuave(); }, 300); });
+
+  /* ---------- gravações ---------- */
+  async function salvaCfg(patch, substituir) {
+    var linha = await q(sb.from('config').select('dados').eq('id', 1).maybeSingle());
+    var atual = (linha && linha.dados) || {};
+    var novo = mescla(atual, patch);
+    (substituir || []).forEach(function (cam) { poeCaminho(novo, cam, clone(pegaCaminho(patch, cam))); });
+    await q(sb.from('config').update({ dados: novo, atualizado_em: agoraIso() }).eq('id', 1));
+    L.config.dados = novo; db = montaDb(L);
+  }
+  async function gravaCliente(c) {
+    await q(sb.from('clientes').upsert({ id: c.id, nome: c.nome, telefone: c.telefone, tipo: c.tipo, observacao: c.observacao || '', ignorar: !!c.ignorar }, { onConflict: 'id' }));
+    await q(sb.from('horarios_fixos').delete().eq('cliente_id', c.id));
+    if (c.tipo === 'fixo' && c.fixos.length) {
+      await q(sb.from('horarios_fixos').insert(c.fixos.map(function (f) { return { cliente_id: c.id, dia: f.dia, hora: f.hora, campo: f.campo }; })));
+    }
+  }
+  function slot(d, h, c) { return { data: d, hora: Number(h), campo: Number(c) }; }
+  async function upConf(d, h, c, extra) {
+    var f = fixoDe(db, d, h, c);
+    var linha = Object.assign(slot(d, h, c), { cliente_id: f ? f.id : null, atualizado_em: agoraIso() }, extra);
+    await q(sb.from('confirmacoes').upsert(linha, { onConflict: 'data,hora,campo' }));
+  }
+  async function naoVem(d, h, c) {
+    var f = fixoDe(db, d, h, c);
+    if (!f) throw new Error('Não há cliente fixo nesse horário.');
+    await q(sb.from('excecoes').upsert(Object.assign(slot(d, h, c), { cliente_id: f.id }), { onConflict: 'data,hora,campo' }));
+    await upConf(d, h, c, { status: 'nao_vem', respondido_em: agoraIso() });
+  }
+  async function desfazNaoVem(d, h, c) {
+    if (reservaEm(db, d, h, c)) throw new Error('Já tem avulso nesse horário. Cancele a reserva antes.');
+    await q(sb.from('excecoes').delete().eq('data', d).eq('hora', Number(h)).eq('campo', Number(c)));
+    await q(sb.from('confirmacoes').delete().eq('data', d).eq('hora', Number(h)).eq('campo', Number(c)));
+  }
+  async function enviaManual(tel, texto, clienteId, origem) {
+    await q(sb.from('mensagens').insert({ telefone: normalizaTelefone(tel), cliente_id: clienteId || null, direcao: 'saida', origem: origem || 'dono',
+      texto: texto, status: 'aprovada', enviar_apos: agoraIso() }));
+  }
+  function roboOnline() { return estadoRobo(L.robo, Date.now()) === 'online'; }
+
+  /* ---------- navegação ---------- */
+  var TITULOS = { inicio: 'Motora Teste', agenda: 'Agenda', conversas: 'Conversas', clientes: 'Clientes', mais: 'Mais',
+    confirmar: 'Confirmar', regras: 'Regras da IA', ajustes: 'Ajustes', robo: 'Robô do WhatsApp', guia: 'Como começar', migrar: 'Trazer meus dados' };
+  var DE_MAIS = { confirmar: 1, regras: 1, ajustes: 1, robo: 1, guia: 1, migrar: 1 };
+  function vaiPara(t) { est.tela = t; est.editCli = null; est.editRegra = null; if (t !== 'conversas') est.conv = null; fechaFolha(); render(); window.scrollTo(0, 0); }
+  $('barra').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-t]'); if (!b) return;
+    vaiPara(b.getAttribute('data-t'));
+  });
+  function atualizaBadges() {
+    var nl = 0; (L.contatos || []).forEach(function (c) { nl += Number(c.nao_lidas) || 0; });
+    var bs = { inicio: (L.sugeridas || []).length + (L.avisos || []).length, conversas: nl };
+    Object.keys(bs).forEach(function (k) {
+      var el = document.querySelector('#barra button[data-t="' + k + '"] .badge');
+      if (el) { el.textContent = bs[k] > 99 ? '99+' : String(bs[k]); el.classList.toggle('oculto', !bs[k]); }
+    });
   }
 
-  /* ---- AGENDA ---- */
+  function render() {
+    var nav = $('barra');
+    if (est.fase !== 'app') {
+      nav.classList.add('oculto');
+      $('acaoTopo').innerHTML = '';
+      $('titulo').textContent = 'Motora Teste';
+      $('tela').innerHTML = est.fase === 'login' ? telaLogin() : est.fase === 'naoDono' ? telaNaoDono() : est.fase === 'semLib' ? telaSemLib() : '<div class="vazio"><div class="g">⏳</div><p>Carregando…</p></div>';
+      return;
+    }
+    nav.classList.remove('oculto');
+    var t = est.tela;
+    var tit = est.editCli ? (est.editCli.id ? 'Editar cliente' : 'Novo cliente') : (t === 'conversas' && est.conv ? nomeContato(db, contatoDe(est.conv)) : TITULOS[t]);
+    $('titulo').textContent = tit;
+    var voltar = DE_MAIS[t] ? 'mais' : (t === 'conversas' && est.conv ? 'conversas' : '');
+    $('acaoTopo').innerHTML = voltar ? '<button class="ico" data-a="voltar" data-v="' + voltar + '" aria-label="Voltar">‹</button>' : '';
+    var marca = DE_MAIS[t] ? 'mais' : t;
+    Array.prototype.forEach.call(document.querySelectorAll('#barra button'), function (b) {
+      if (b.getAttribute('data-t') === marca) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
+    });
+    var html = '';
+    if (t === 'inicio') html = telaInicio();
+    else if (t === 'agenda') html = telaAgenda();
+    else if (t === 'conversas') html = est.conv ? telaConversa() : telaConversas();
+    else if (t === 'clientes') html = est.editCli ? telaFormCliente() : telaClientes();
+    else if (t === 'confirmar') html = telaConfirmar();
+    else if (t === 'regras') html = telaRegras();
+    else if (t === 'ajustes') html = telaAjustes();
+    else if (t === 'robo') html = '<div class="card">' + htmlRobo() + '</div>';
+    else if (t === 'guia') html = '<div class="card">' + htmlGuia() + '</div>' + TX_PRIV;
+    else if (t === 'migrar') html = telaMigrar();
+    else html = telaMais();
+    $('tela').innerHTML = html;
+    atualizaBadges();
+    if (t === 'clientes' && !est.editCli) {
+      var bx = $('busca'); if (bx) bx.addEventListener('input', function () { est.busca = bx.value; var l = $('listaCli'); if (l) l.innerHTML = htmlListaClientes(); });
+    }
+    if (t === 'conversas' && est.conv) { var h = $('hist'); if (h) h.scrollTop = h.scrollHeight; }
+  }
+
+  /* ---------- textos ---------- */
+  var TX_PRIV = '<div class="priv">🔒 <b>Privacidade:</b> as mensagens dos clientes ficam guardadas no seu banco de dados (Supabase), protegido pela sua senha. ' +
+    'Para responder, o texto da conversa é enviado ao Google (Gemini) ou ao Groq. No plano grátis, o Google pode usar esses dados para melhorar os modelos. ' +
+    'Antes de importar conversas, apague o que for sensível (CPF, endereço, dados de pagamento).</div>';
+  var TX_RISCO = '<div class="aviso">⚠ <b>Risco de bloqueio:</b> o robô usa o WhatsApp de um jeito <b>não oficial</b>. O WhatsApp pode bloquear o número. ' +
+    'Para diminuir o risco: use, se puder, um número separado; não mande mensagens em massa; deixe os atrasos ligados.</div>';
+  function htmlGuia() {
+    return '<ol class="passos">' +
+      '<li><b>Crie sua conta</b> neste app (email e senha). ✓ Feito!</li>' +
+      '<li><b>Pegue a chave grátis da IA:</b> abra <a class="lk" href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">aistudio.google.com/apikey</a>, entre com sua conta Google, toque em <b>Create API key</b> e copie. Cole em <b>Mais › Ajustes › Chaves da IA</b> e toque em Salvar.</li>' +
+      '<li><b>Instale o robô no computador:</b> veja <b>Mais › Robô</b>. Ele lê e manda as mensagens do WhatsApp.</li>' +
+      '<li><b>Ligue a IA no modo Sugerir</b> para testar: a IA escreve, você confere e aprova cada resposta na tela Início.</li>' +
+      '<li><b>Depois, se gostar, mude para Automático:</b> a IA responde sozinha. Você pode desligar a qualquer hora no botão grande.</li></ol>' +
+      '<p class="leg">Dica: em <b>Regras da IA</b> você escreve o que a IA deve ou não fazer, e testa antes com <b>Testar a IA</b>.</p>' + TX_RISCO;
+  }
+
+  /* ---------- LOGIN ---------- */
+  function telaLogin() {
+    return '<div class="card"><h2 style="margin-top:0">Entrar</h2><p class="leg">Use o email e a senha do dono dos campos.</p>' +
+      '<label for="lEmail">Email</label><input id="lEmail" type="email" autocomplete="username" inputmode="email" value="' + esc(est.email) + '">' +
+      '<label for="lSenha">Senha</label><input id="lSenha" type="password" autocomplete="current-password">' +
+      (est.erroLogin ? '<p class="erro">⚠ ' + esc(est.erroLogin) + '</p>' : '') + (est.infoLogin ? '<div class="faixa" id="infoLogin">📧 ' + esc(est.infoLogin) + '</div>' : '') +
+      '<button class="btn" style="margin-top:16px" data-a="entrar">Entrar</button>' +
+      '<button class="btn sec" data-a="criarConta">Criar minha conta</button>' +
+      '<p class="leg">Primeira vez? Toque em <b>Criar minha conta</b> com o <b>seu</b> e-mail: ele vira a conta do dono. Depois confirme o e-mail pelo link que chega.</p></div>' + TX_PRIV;
+  }
+  function telaNaoDono() {
+    return '<div class="vazio"><div class="g">🚫</div><p><b>Esta conta não é a do dono (ou o e-mail ainda não foi confirmado).</b></p><p class="leg">Só a conta criada pelo dono, com o e-mail confirmado, pode usar o painel. Se você acabou de criar a conta, abra o e-mail de confirmação, toque no link e entre de novo.</p>' +
+      '<button class="btn" data-a="sair">Sair e entrar com outra conta</button></div>';
+  }
+  function telaSemLib() {
+    return '<div class="vazio"><div class="g">📶</div><p>Não consegui carregar o app. Confira a internet.</p><button class="btn" data-a="tentarDeNovo">Tentar de novo</button></div>';
+  }
+
+  /* ---------- INÍCIO ---------- */
+  function telaInicio() {
+    var c = cfg(), on = !!c.ia_ligada, s = '';
+    s += '<button class="btn ia-bt ' + (on ? 'ia-on' : 'ia-off') + '" data-a="liga" id="btIA" aria-pressed="' + on + '">' +
+      (on ? '🟢 IA LIGADA' : '⚪ IA DESLIGADA') + '<small>' + (on ? 'Toque para desligar' : 'Toque para ligar') + '</small></button>' +
+      '<p class="leg" id="txIA">' + (on ? 'A IA está atendendo o WhatsApp pelo robô.' : '<b>Desligada:</b> o robô não responde ninguém, não manda confirmação aos fixos e cancela as mensagens que estavam na fila.') + '</p>';
+    s += '<div class="seg" role="group" aria-label="Modo da IA"><button data-a="modo" data-m="sugerir" aria-pressed="' + (c.modo !== 'automatico') + '">✋ Sugerir<small>eu aprovo</small></button>' +
+      '<button data-a="modo" data-m="automatico" aria-pressed="' + (c.modo === 'automatico') + '">⚡ Automático<small>responde sozinha</small></button></div>';
+    if (on && !(L.config.gemini_key || L.config.groq_key)) s += '<div class="aviso">⚠ Falta a chave da IA. <button class="lk lkb" data-a="ir" data-t="ajustes">Abrir Ajustes</button></div>';
+    s += cartaoRobo(true);
+    var ct = contadoresHoje(L.msgsHoje, db.reservas, dataLocal(agora()));
+    s += '<div class="conta"><div><b>' + ct.recebidas + '</b><span>recebidas hoje</span></div><div><b>' + ct.respondidas + '</b><span>respondidas</span></div><div><b>' + ct.reservas + '</b><span>reservas novas</span></div></div>';
+    s += '<h2>Sugestões aguardando (' + L.sugeridas.length + ')</h2>';
+    if (!L.sugeridas.length) s += '<p class="leg">Nenhuma resposta esperando sua aprovação.</p>';
+    else s += L.sugeridas.map(function (m) { return cartaoSugestao(m, true); }).join('');
+    s += '<h2>Avisos (' + L.avisos.length + ')</h2>';
+    if (!L.avisos.length) s += '<p class="leg">Nenhum aviso novo.</p>';
+    else {
+      s += L.avisos.map(function (a) {
+        return '<div class="card aviso-c"><div>' + esc(a.texto) + '</div><div class="leg">' + esc(quando(a.criado_em)) + (a.telefone ? ' · ' + esc(formataTel(a.telefone)) : '') + '</div>' +
+          '<div class="linha" style="margin-top:8px">' + (a.telefone ? '<button class="btn sec" data-a="abreConv" data-tel="' + esc(a.telefone) + '">Ver conversa</button>' : '') +
+          '<button class="btn sec" data-a="lido" data-id="' + esc(a.id) + '">Marcar lido</button></div></div>';
+      }).join('');
+      s += '<button class="btn sec" data-a="todosLidos">Marcar todos como lidos</button>';
+    }
+    if (!(L.config.gemini_key || L.config.groq_key) || estadoRobo(L.robo, Date.now()) === 'nunca') {
+      s += '<details class="card"' + (!c.ia_ligada ? ' open' : '') + '><summary>Como começar</summary><div class="corpo">' + htmlGuia() + '</div></details>';
+    }
+    return s;
+  }
+  function quando(iso) {
+    if (!iso) return '';
+    var d = new Date(iso); if (isNaN(d)) return '';
+    var ds = dataLocal(d), hj = dataLocal(agora());
+    var hm = p2(d.getHours()) + ':' + p2(d.getMinutes());
+    return ds === hj ? 'hoje ' + hm : (ds === somaDias(hj, -1) ? 'ontem ' + hm : formataDataBR(ds) + ' ' + hm);
+  }
+  function cartaoRobo(curto) {
+    var st = estadoRobo(L.robo, Date.now()), r = L.robo || {};
+    var s = '<div class="card robo-c">';
+    if (st === 'online') s += '<div class="rst ok">🟢 Robô online' + (r.numero ? ' · ' + esc(formataTel(r.numero)) : '') + '</div><p class="leg">Lendo e enviando mensagens do WhatsApp.</p>';
+    else if (st === 'qr') {
+      var img = qrSeguro(r.qr);
+      s += '<div class="rst aviso-t">📷 Escaneie o QR</div><p class="leg">No celular do WhatsApp: ⋮ › <b>Aparelhos conectados</b> › <b>Conectar aparelho</b> e aponte para o código.</p>' +
+        (img ? '<img class="qr" alt="Código QR do WhatsApp" src="' + esc(img) + '">' : '<p>Abra <b>http://localhost:3210</b> no computador do robô para ver o código.</p>');
+    } else if (st === 'conectando') s += '<div class="rst aviso-t">🟡 Robô ligando…</div><p class="leg">O computador está conectando ao WhatsApp.</p>';
+    else if (st === 'offline') s += '<div class="rst erro">🔴 Robô offline</div><p class="leg">Visto ' + esc(quando(r.online_em)) + '. Confira se o computador está ligado, com internet e com a janela do robô aberta.</p>';
+    else s += '<div class="rst erro">⚪ Robô não instalado</div><p class="leg">Sem o robô, nada é lido nem enviado no WhatsApp.</p>';
+    if (curto && st !== 'online') s += '<button class="btn sec" data-a="ir" data-t="robo">' + (st === 'nunca' ? 'Instalar o robô' : 'Ver o robô') + '</button>';
+    return s + '</div>';
+  }
+  function cartaoSugestao(m, comContato) {
+    var ct = contatoDe(m.telefone), s = '<div class="card sug">';
+    if (comContato) s += '<div class="n">' + esc(nomeContato(db, ct) || formataTel(m.telefone)) + ' <span class="leg">' + esc(quando(m.criada_em)) + '</span></div>';
+    if (comContato && m.responde_a != null && L.entradas[m.responde_a]) s += '<div class="msg cliente">' + esc(L.entradas[m.responde_a]) + '</div>';
+    if (est.editMsg === m.id) {
+      s += '<label for="edMsg">Resposta (pode editar)</label><textarea id="edMsg" data-in="editTxt">' + esc(est.editTxt) + '</textarea>';
+    } else s += '<div class="msg dono sugerida">🤖 ' + esc(m.texto) + '</div>';
+    var ac = m.acao, desc = descreveAcao(db, ac);
+    if (desc) {
+      s += '<div class="acao"><b>Ação sugerida:</b> ' + esc(desc);
+      if (m.acao_status === 'recusada') s += '<p class="erro">⚠ ' + esc(m.acao_erro || 'A ação não é válida.') + '</p>';
+      else if (m.acao_status === 'aplicada') s += '<p class="leg">✓ Já aplicada.</p>';
+      else s += '<label class="chk-l" for="ap' + esc(m.id) + '">Aplicar a ação junto?</label><select id="ap' + esc(m.id) + '"><option value="1">Sim, aplicar</option><option value="0">Não, só mandar o texto</option></select>';
+      s += '</div>';
+    }
+    if (m.motivo) s += '<p class="leg">Motivo: ' + esc(m.motivo) + '</p>';
+    var id = esc(m.id);
+    if (est.editMsg === m.id) s += '<div class="linha"><button class="btn" data-a="aprovar" data-id="' + id + '" data-ed="1">Aprovar e enviar</button><button class="btn sec" data-a="cancelaEd">Cancelar</button></div>';
+    else s += '<button class="btn" data-a="aprovar" data-id="' + id + '">✓ Aprovar e enviar</button><div class="linha" style="margin-top:8px"><button class="btn sec" data-a="editar" data-id="' + id + '">✎ Editar</button>' +
+      '<button class="btn perigo" data-a="descartar" data-id="' + id + '">✗ Descartar</button></div>';
+    if (comContato) s += '<button class="btn sec" data-a="abreConv" data-tel="' + esc(m.telefone) + '">Ver conversa</button>';
+    return s + '</div>';
+  }
+  function contatoDe(tel) {
+    for (var i = 0; i < L.contatos.length; i++) if (L.contatos[i].telefone === tel) return L.contatos[i];
+    return { telefone: tel, nome_contato: '', cliente_id: (function () { var k = chaveTel(tel); var c = db.clientes.filter(function (x) { return x.telefone && chaveTel(x.telefone) === k; })[0]; return c ? c.id : null; })() };
+  }
+
+  /* ---------- CONVERSAS ---------- */
+  function telaConversas() {
+    if (!L.contatos.length) return '<div class="vazio"><div class="g">💬</div><p>Nenhuma conversa ainda.</p><p class="leg">As conversas aparecem aqui quando o robô estiver ligado e alguém mandar mensagem.</p>' +
+      '<button class="btn sec" data-a="ir" data-t="robo">Ver o robô</button></div>';
+    var agoraMs = Date.now(), sugPor = {};
+    L.sugeridas.forEach(function (m) { sugPor[m.telefone] = (sugPor[m.telefone] || 0) + 1; });
+    return L.contatos.map(function (c) {
+      var nl = Number(c.nao_lidas) || 0;
+      return '<button class="card cli" data-a="abreConv" data-tel="' + esc(c.telefone) + '"><div><div class="n">' + esc(nomeContato(db, c)) + '</div><div class="leg">' +
+        esc(formataTel(c.telefone)) + ' · ' + esc(quando(c.ultima_msg_em)) + (estaPausado(c, agoraMs) ? ' · ⏸ IA pausada' : '') + '</div></div>' +
+        (sugPor[c.telefone] ? '<span class="selo pend">✋ ' + sugPor[c.telefone] + '</span>' : '') +
+        (nl ? '<span class="selo nl">' + nl + '</span>' : '') + '</button>';
+    }).join('');
+  }
+  function telaConversa() {
+    var c = contatoDe(est.conv), agoraMs = Date.now(), s = '';
+    s += '<p class="leg">' + esc(formataTel(c.telefone)) + '</p>';
+    if (estaPausado(c, agoraMs)) {
+      var ate = c.pausado_ate >= '2098' ? 'até você tirar' : 'até ' + quando(c.pausado_ate);
+      s += '<div class="aviso">⏸ IA pausada neste contato ' + esc(ate) + (c.motivo_pausa ? ' (' + esc(c.motivo_pausa) + ')' : '') + '.<button class="btn sec" style="margin-top:8px" data-a="despausar">▶ Voltar a IA neste contato</button></div>';
+    } else s += '<button class="btn sec" data-a="pausar">⏸ Pausar IA neste contato</button>';
+    var msgs = est.msgsConv.filter(function (m) { return m.status !== 'sugerida'; });
+    if (!msgs.length) s += '<p class="leg">Nenhuma mensagem ainda.</p>';
+    else {
+      s += '<div class="hist" id="hist">' + msgs.map(function (m) {
+        var cls = m.direcao === 'entrada' ? 'cliente' : 'dono';
+        var ST = { aprovada: '⏳ na fila', enviando: '⏳ enviando', enviada: '✓', erro: '⚠ erro', ignorada: '✗ não enviada', recebida: '' };
+        var orig = m.direcao === 'saida' ? ({ ia: '🤖 ', confirmacao: '📅 ', dono: '' }[m.origem] || '') : '';
+        return '<div class="msg ' + cls + (m.status === 'ignorada' ? ' ign' : '') + '">' + esc(orig + m.texto) + '<small>' + esc(quando(m.criada_em)) + ' ' + esc(ST[m.status] || '') +
+          (m.status === 'erro' && m.erro ? ' ' + esc(m.erro) : '') + '</small></div>';
+      }).join('') + '</div>';
+    }
+    var sug = est.msgsConv.filter(function (m) { return m.status === 'sugerida' && m.direcao === 'saida'; });
+    if (sug.length) s += '<h2>Sugestão da IA</h2>' + sug.map(function (m) { return cartaoSugestao(m, false); }).join('');
+    s += '<label for="resp">Responder pelo robô</label><textarea id="resp" data-in="resp" placeholder="Escreva aqui…">' + esc(est.resp) + '</textarea>';
+    s += '<button class="btn" style="margin-top:8px" data-a="responder">Enviar pelo robô</button>';
+    if (!roboOnline()) s += '<p class="leg">⚠ O robô está fora do ar: a mensagem fica na fila e sai quando ele ligar.</p>';
+    return s;
+  }
+
+  /* ---------- AGENDA ---------- */
   function infoCelula(oc) {
     if (oc.tipo === 'avulso') {
       var nm = oc.cliente ? oc.cliente.nome : 'Avulso';
-      return oc.reserva.pago ? { cls: 'pago', ic: '✔$', nome: nm, rot: 'Pago' } : { cls: 'avp', ic: '$', nome: nm, rot: 'A pagar' };
+      return oc.reserva.pago ? { cls: 'pago', ic: '✔$', nome: nm, rot: 'Pago' } : { cls: 'avp', ic: '$', nome: nm, rot: 'A pagar' + (oc.reserva.origem === 'ia' ? ' · IA' : '') };
     }
     if (oc.tipo === 'fixo') {
       var n = oc.cliente.nome;
@@ -767,40 +1218,37 @@ if (typeof module !== 'undefined') module.exports = {
       s += '<div class="hh">' + h + 'h</div>';
       cs.forEach(function (c) {
         var i = infoCelula(ocupante(db, d, h, c));
-        s += '<button class="cel ' + i.cls + '" data-a="cel" data-h="' + h + '" data-c="' + c + '"><b>' + esc(i.ic + ' ' + i.nome) + '</b>' +
-          (i.rot ? '<small>' + esc(i.rot) + '</small>' : '') + '</button>';
+        s += '<button class="cel ' + i.cls + '" data-a="cel" data-h="' + h + '" data-c="' + c + '"><b>' + esc(i.ic + ' ' + i.nome) + '</b>' + (i.rot ? '<small>' + esc(i.rot) + '</small>' : '') + '</button>';
       });
     });
     return s + '</div>';
   }
   function folhaCelula(h, c) {
     var d = est.data, oc = ocupante(db, d, h, c), tit = '<h3>' + esc(nomeDia(d) + ' ' + formataDataBR(d) + ' · ' + h + 'h · ' + nomeCampo(db, c)) + '</h3>';
-    var hoje = dataLocal(agora()), passado = d < hoje;
-    var bt = '';
+    var passado = d < dataLocal(agora()), bt = '', dh = ' data-h="' + h + '" data-c="' + c + '"';
     if (oc.tipo === 'avulso') {
       var r = oc.reserva;
       bt += '<p>' + esc((oc.cliente ? oc.cliente.nome : 'Cliente removido') + ' · avulso · ' + (r.pago ? 'Pago ✔' : 'A pagar')) + '</p>';
       if (!r.pago) bt += '<button class="btn" data-a="pago" data-id="' + esc(r.id) + '">Marcar como pago</button>';
       else bt += '<button class="btn sec" data-a="naoPago" data-id="' + esc(r.id) + '">Voltar para "a pagar"</button>';
-      if (oc.cliente && oc.cliente.telefone) bt += '<button class="btn sec" data-a="falar" data-cid="' + esc(oc.cliente.id) + '">Abrir no Atendimento IA</button>';
+      if (oc.cliente && oc.cliente.telefone) bt += '<button class="btn sec" data-a="abreConv" data-tel="' + esc(oc.cliente.telefone) + '">Abrir conversa</button>';
       bt += '<button class="btn perigo" data-a="cancelaRes" data-id="' + esc(r.id) + '">Cancelar reserva</button>';
     } else if (oc.tipo === 'fixo') {
       var stTx = { pendente: 'Ainda não avisado', manha: '1º aviso enviado', tarde: '2º aviso enviado', confirmado: 'Confirmado ✓' }[oc.status] || oc.status;
       bt += '<p>' + esc(oc.cliente.nome + ' · fixo · ' + stTx) + '</p>';
-      if (oc.status !== 'confirmado') bt += '<button class="btn" data-a="confirmou" data-h="' + h + '" data-c="' + c + '">Confirmou</button>';
-      bt += '<button class="btn perigo" data-a="naoVem" data-h="' + h + '" data-c="' + c + '">Não vem desta vez</button>';
-      bt += '<button class="btn sec" data-a="falar" data-cid="' + esc(oc.cliente.id) + '">Abrir no Atendimento IA</button>';
+      if (oc.status !== 'confirmado') bt += '<button class="btn" data-a="confirmou"' + dh + '>Confirmou</button>';
+      bt += '<button class="btn perigo" data-a="naoVem"' + dh + '>Não vem desta vez</button>';
+      if (oc.cliente.telefone) bt += '<button class="btn sec" data-a="abreConv" data-tel="' + esc(oc.cliente.telefone) + '">Abrir conversa</button>';
     } else {
       if (oc.naoVem) {
         bt += '<p>' + esc(oc.naoVem.nome + ' (fixo) avisou que não vem. Horário livre para avulso.') + '</p>';
-        bt += '<button class="btn sec" data-a="desfazNaoVem" data-h="' + h + '" data-c="' + c + '">Desfazer "não vem"</button>';
+        bt += '<button class="btn sec" data-a="desfazNaoVem"' + dh + '>Desfazer "não vem"</button>';
       } else bt += '<p>○ Livre</p>';
       if (!passado) {
-        var avulsos = db.clientes.slice().sort(function (a, b) { return a.nome.localeCompare(b.nome); });
-        if (avulsos.length) {
-          bt += '<label for="selCliRes">Cliente</label><select id="selCliRes">' + avulsos.map(function (x) {
-            return '<option value="' + esc(x.id) + '">' + esc(x.nome) + '</option>'; }).join('') + '</select>';
-          bt += '<button class="btn" style="margin-top:12px" data-a="reservar" data-h="' + h + '" data-c="' + c + '">Reservar avulso</button>';
+        var lista = db.clientes.slice().sort(function (a, b) { return a.nome.localeCompare(b.nome); });
+        if (lista.length) {
+          bt += '<label for="selCliRes">Cliente</label><select id="selCliRes">' + lista.map(function (x) { return '<option value="' + esc(x.id) + '">' + esc(x.nome) + '</option>'; }).join('') + '</select>';
+          bt += '<button class="btn" style="margin-top:12px" data-a="reservar"' + dh + '>Reservar avulso</button>';
         } else bt += '<p class="leg">Cadastre um cliente primeiro.</p>';
         bt += '<button class="btn sec" data-a="novoCliRes">+ Cadastrar cliente</button>';
       }
@@ -808,31 +1256,29 @@ if (typeof module !== 'undefined') module.exports = {
     abreFolha(tit + bt);
   }
 
-  /* ---- CLIENTES ---- */
+  /* ---------- CLIENTES ---------- */
   function telaClientes() {
-    var s = '<input id="busca" type="search" placeholder="Buscar por nome ou telefone" aria-label="Buscar cliente" value="' + esc(est.busca) + '">';
-    s += '<div id="listaCli">' + htmlListaClientes() + '</div>';
-    return s + '<button class="fab" data-a="novoCli" aria-label="Novo cliente">+</button>';
+    return '<input id="busca" type="search" placeholder="Buscar por nome ou telefone" aria-label="Buscar cliente" value="' + esc(est.busca) + '">' +
+      '<div id="listaCli">' + htmlListaClientes() + '</div><button class="fab" data-a="novoCli" aria-label="Novo cliente">+</button>';
   }
   function htmlListaClientes() {
-    if (!db.clientes.length) return '<div class="vazio"><div class="g">👥</div><p>Nenhum cliente ainda. Toque em + para cadastrar.</p><button class="btn" data-a="novoCli">+ Cadastrar cliente</button></div>';
-    var q = est.busca.trim().toLowerCase(), qd = q.replace(/\D/g, '');
-    var lista = db.clientes.filter(function (c) {
-      return !q || c.nome.toLowerCase().indexOf(q) >= 0 || (qd && String(c.telefone).indexOf(qd) >= 0);
-    }).sort(function (a, b) { return a.nome.localeCompare(b.nome); });
+    if (!db.clientes.length) return '<div class="vazio"><div class="g">👥</div><p>Nenhum cliente ainda. Toque em + para cadastrar.</p><button class="btn" data-a="novoCli">+ Cadastrar cliente</button>' +
+      '<button class="btn sec" data-a="ir" data-t="migrar">Trazer meus dados deste celular</button></div>';
+    var qq = est.busca.trim().toLowerCase(), qd = qq.replace(/\D/g, '');
+    var lista = db.clientes.filter(function (c) { return !qq || c.nome.toLowerCase().indexOf(qq) >= 0 || (qd && String(c.telefone).indexOf(qd) >= 0); })
+      .sort(function (a, b) { return a.nome.localeCompare(b.nome); });
     if (!lista.length) return '<p class="leg">Ninguém encontrado.</p>';
     return lista.map(function (c) {
       var fx = c.tipo === 'fixo' ? (c.fixos || []).map(function (f) { return DIAS_CURTO[f.dia] + ' ' + f.hora + 'h C' + f.campo; }).join(', ') : '';
-      return '<button class="card cli" data-a="editCli" data-cid="' + esc(c.id) + '"><div><div class="n">' + esc(c.nome) + '</div><div class="leg">' +
-        esc(c.telefone || 'sem telefone') + (fx ? ' · ' + esc(fx) : '') + '</div></div><span class="selo ' + (c.tipo === 'fixo' ? 'conf' : 'avp') + '">' +
+      return '<button class="card cli" data-a="editCli" data-cid="' + esc(c.id) + '"><div><div class="n">' + esc(c.nome) + (c.ignorar ? ' 🔇' : '') + (c.origem === 'ia' ? ' 🤖' : '') + '</div><div class="leg">' +
+        esc(c.telefone ? formataTel(c.telefone) : 'sem telefone') + (fx ? ' · ' + esc(fx) : '') + '</div></div><span class="selo ' + (c.tipo === 'fixo' ? 'conf' : 'avp') + '">' +
         (c.tipo === 'fixo' ? '✓ Fixo' : '$ Avulso') + '</span></button>';
     }).join('');
   }
-  function renderListaClientes() { var l = $('listaCli'); if (l) l.innerHTML = htmlListaClientes(); }
   function telaFormCliente() {
     var c = est.editCli;
     var s = '<label for="fNome">Nome</label><input id="fNome" autocomplete="off" value="' + esc(c.nome || '') + '">';
-    s += '<label for="fTel">Telefone (com DDD)</label><input id="fTel" type="tel" inputmode="tel" placeholder="(11) 91234-5678" value="' + esc(c.telefone || '') + '">';
+    s += '<label for="fTel">Telefone (com DDD)</label><input id="fTel" type="tel" inputmode="tel" placeholder="(11) 91234-5678" value="' + esc(c.telefone ? formataTel(c.telefone) : '') + '">';
     s += '<label for="fTipo">Tipo</label><select id="fTipo" data-ch="tipoCli"><option value="avulso"' + (c.tipo !== 'fixo' ? ' selected' : '') + '>Avulso (reserva de vez em quando)</option>' +
       '<option value="fixo"' + (c.tipo === 'fixo' ? ' selected' : '') + '>Fixo (mesmo horário toda semana)</option></select>';
     if (c.tipo === 'fixo') {
@@ -840,14 +1286,16 @@ if (typeof module !== 'undefined') module.exports = {
       (c.fixos || []).forEach(function (f, i) { s += linhaFixo(f, i); });
       s += '</div><button class="btn sec" data-a="addFixo">+ Adicionar horário</button>';
     }
+    s += '<label for="fObs">Observação (a IA lê)</label><input id="fObs" value="' + esc(c.observacao || '') + '" placeholder="Ex.: prefere campo 2">';
+    s += '<label for="fIgn">A IA pode responder este contato?</label><select id="fIgn"><option value="0"' + (!c.ignorar ? ' selected' : '') + '>Sim</option><option value="1"' + (c.ignorar ? ' selected' : '') + '>Não, nunca responder</option></select>';
     s += '<div style="margin-top:24px"><button class="btn" data-a="salvaCli">Salvar</button><button class="btn sec" data-a="cancelaCli">Cancelar</button>';
     if (c.id) s += '<button class="btn perigo" data-a="removeCli">Apagar cliente</button>';
     return s + '</div>';
   }
+  function diasAbertos() { return [1, 2, 3, 4, 5, 6, 0].filter(function (d) { return (db.config.grade[d] || []).length; }); }
   function linhaFixo(f, i) {
-    var dias = [1, 2, 3, 4, 5, 6, 0].filter(function (d) { return (db.config.grade[d] || []).length; });
     var hs = (db.config.grade[f.dia] || []);
-    var s = '<div class="fixo-linha" data-i="' + i + '"><select aria-label="Dia" data-ch="fxDia" data-i="' + i + '">' + dias.map(function (d) {
+    var s = '<div class="fixo-linha"><select aria-label="Dia" data-ch="fxDia" data-i="' + i + '">' + diasAbertos().map(function (d) {
       return '<option value="' + d + '"' + (Number(f.dia) === d ? ' selected' : '') + '>' + DIAS_CURTO[d] + '</option>'; }).join('') + '</select>';
     s += '<select aria-label="Hora" data-ch="fxHora" data-i="' + i + '">' + hs.map(function (h) {
       return '<option value="' + h + '"' + (Number(f.hora) === Number(h) ? ' selected' : '') + '>' + h + 'h</option>'; }).join('') + '</select>';
@@ -859,23 +1307,26 @@ if (typeof module !== 'undefined') module.exports = {
     var c = est.editCli; if (!c) return;
     if ($('fNome')) c.nome = $('fNome').value;
     if ($('fTel')) c.telefone = $('fTel').value;
+    if ($('fObs')) c.observacao = $('fObs').value;
+    if ($('fIgn')) c.ignorar = $('fIgn').value === '1';
   }
 
-  /* ---- CONFIRMAR ---- */
+  /* ---------- CONFIRMAR ---------- */
   function telaConfirmar() {
-    var hj = agora(), am = somaDias(dataLocal(hj), 1);
-    var s = '<div class="aviso">⏰ O app não manda as confirmações sozinho. Abra esta aba de manhã e à tarde e toque em Enviar.</div>';
+    var c = cfg(), hj = agora(), am = somaDias(dataLocal(hj), 1), s = '';
+    if (c.confirmacao_auto) s += '<div class="faixa">🤖 <b>Confirmação automática LIGADA.</b> O robô manda o 1º aviso às ' + esc(c.confirmacao_manha_hora) + ' e o 2º às ' + esc(c.confirmacao_tarde_hora) +
+      (c.liberar_fixo_sem_resposta && c.liberar_fixo_sem_resposta.ligado ? '. Sem resposta até ' + esc(c.liberar_fixo_sem_resposta.hora) + ', o horário é liberado.' : '.') + '</div>';
+    else s += '<div class="aviso">✋ Confirmação automática desligada: toque em Enviar em cada jogo. <button class="lk lkb" data-a="ir" data-t="ajustes">Ligar em Ajustes</button></div>';
     s += '<h2>Jogos de amanhã (' + esc(nomeDia(am).toLowerCase() + ' ' + formataDataBR(am)) + ')</h2>';
-    var per = periodoDoDia(hj.getHours());
-    s += '<div class="faixa">' + (per === 'manha' ? '☀ Manhã: mande o 1º aviso.' : per === 'tarde' ? '🌤 Tarde: mande o 2º aviso para quem não respondeu.' : '🌙 Noite: veja quem ainda não confirmou.') + '</div>';
     var itens = fixosDeAmanha(db, hj);
     if (!itens.length) return s + '<div class="vazio"><div class="g">✅</div><p>Nenhum jogo fixo amanhã.</p></div>';
     var ST = { pendente: '? Não avisado', manha: '? 1º aviso enviado', tarde: '? 2º aviso enviado', confirmado: '✓ Confirmado', nao_vem: '✗ Não vem' };
     var CL = { pendente: 'pend', manha: 'pend', tarde: 'pend', confirmado: 'conf', nao_vem: 'naovem' };
     itens.forEach(function (it) {
       var dh = ' data-h="' + it.hora + '" data-c="' + it.campo + '" data-d="' + it.data + '"';
+      var info = db.confirmacoes[chave(it.data, it.hora, it.campo)] || {};
       s += '<div class="card"><div style="font-size:18px;font-weight:700">' + it.hora + 'h · ' + esc(nomeCampo(db, it.campo)) + '</div><div>' + esc(it.cliente.nome) + '</div>' +
-        '<div style="margin:8px 0"><span class="selo ' + CL[it.status] + '">' + ST[it.status] + '</span></div>';
+        '<div style="margin:8px 0"><span class="selo ' + CL[it.status] + '">' + ST[it.status] + '</span>' + (info.liberadoAuto ? ' <span class="leg">(liberado automático)</span>' : '') + '</div>';
       if (it.status === 'nao_vem') s += '<button class="btn sec" data-a="desfazNaoVemC"' + dh + '>Desfazer</button>';
       else {
         if (it.status !== 'confirmado') s += '<button class="btn" data-a="enviaConf"' + dh + '>Enviar' + (it.status === 'pendente' ? '' : ' de novo') + '</button>';
@@ -887,208 +1338,399 @@ if (typeof module !== 'undefined') module.exports = {
     return s;
   }
 
-  /* ---- IA ---- */
-  function temChaveIA() { return !!(db.config.ia.geminiKey || db.config.ia.groqKey); }
-  function telaIA() {
-    var s = '<div class="faixa">🔒 Nada é enviado sem você tocar em Enviar.</div>';
-    if (!temChaveIA()) return s + '<div class="vazio"><div class="g">🔑</div><p>Falta a chave da IA. Vá em Ajustes › IA.</p><button class="btn" data-a="irAjustes">Abrir Ajustes</button></div>' +
-      '<div class="card"><h2 style="margin-top:0">Como começar</h2>' + htmlGuia() + '</div><div class="card">' + TX_FAZ + '</div>';
-    s += '<p class="leg">Copie a mensagem do cliente no WhatsApp e cole aqui embaixo.</p>';
-    if (!navigator.onLine) s += '<div class="aviso">⚠ Sem internet. A agenda funciona, mas a IA e o envio não.</div>';
-    var cs = db.clientes.slice().sort(function (a, b) { return a.nome.localeCompare(b.nome); });
-    s += '<label for="iaCli">Cliente</label><select id="iaCli" data-ch="iaCli"><option value="">— Contato novo —</option>' + cs.map(function (c) {
-      return '<option value="' + esc(c.id) + '"' + (c.id === est.iaCli ? ' selected' : '') + '>' + esc(c.nome) + '</option>'; }).join('') + '</select>';
-    var cli = clientePorId(db, est.iaCli);
-    if (!cli) s += '<button class="btn sec" style="margin-top:8px" data-a="novoCliIA">+ Cadastrar este contato</button>';
-    if (cli && cli.historico && cli.historico.length) {
-      s += '<h2>Conversa</h2><div class="hist" id="hist">' + cli.historico.map(function (m) {
-        return '<div class="msg ' + (m.de === 'dono' ? 'dono' : 'cliente') + '">' + esc(m.texto) + '</div>'; }).join('') + '</div>' +
-        '<button class="btn perigo" data-a="limpaHist">Limpar conversa</button>';
-    }
-    s += '<label for="iaMsg">Cole a mensagem do cliente</label><textarea id="iaMsg" data-in="iaMsg" placeholder="Ex.: Tem horário quinta às 21h?">' + esc(est.iaMsg) + '</textarea>';
-    s += '<button class="btn" style="margin-top:8px" data-a="gerar"' + (est.iaCarregando ? ' disabled' : '') + '>' + (est.iaCarregando ? 'Pensando…' : 'Gerar resposta') + '</button>';
-    if (est.iaResp || est.iaAcao) {
-      s += '<label for="iaResp">Resposta (pode editar)</label><textarea id="iaResp" data-in="iaResp">' + esc(est.iaResp) + '</textarea>';
-      var ac = est.iaAcao;
-      if (ac && ac.tipo !== 'nenhuma') {
-        var v = validaAcao(db, ac, est.iaCli, agora());
-        var NOMES = { reservar_avulso: 'Reservar avulso', nao_vem: 'Marcar "não vem"', confirmar: 'Marcar confirmado', cancelar: 'Cancelar reserva' };
-        s += '<div class="card"><b>Ação sugerida</b><p>' + esc(NOMES[ac.tipo] + ': ' + (dataValida(ac.data) ? nomeDia(ac.data) + ' ' + formataDataBR(ac.data) : '?') + ' · ' + ac.hora + 'h · ' + nomeCampo(db, ac.campo)) + '</p>';
-        if (!cli) s += '<p class="erro">⚠ Cadastre o contato para aplicar.</p>';
-        else if (!v.ok) s += '<p class="erro">⚠ ' + esc(v.erro) + '</p>';
-        else s += '<button class="btn" data-a="aplicar">Aplicar</button>';
-        s += '</div>';
+  /* ---------- REGRAS ---------- */
+  function telaRegras() {
+    var s = '<p class="leg">A IA segue estas regras, de cima para baixo. Escreva como se falasse com um funcionário.</p>';
+    if (!db.regras.length) s += '<p class="leg">Nenhuma regra ainda.</p>';
+    db.regras.forEach(function (r, i) {
+      var id = esc(r.id);
+      if (est.editRegra === r.id) {
+        s += '<div class="card"><label for="edRegra">Editar regra</label><textarea id="edRegra">' + esc(r.texto) + '</textarea>' +
+          '<div class="linha" style="margin-top:8px"><button class="btn" data-a="salvaRegra" data-id="' + id + '">Salvar</button><button class="btn sec" data-a="cancelaRegra">Cancelar</button></div></div>';
+        return;
       }
-      s += '<div class="linha" style="margin-top:12px"><button class="btn" data-a="enviarIA">Enviar</button><button class="btn sec" data-a="copiarIA">Copiar</button></div>';
+      s += '<div class="card regra' + (r.ativa ? '' : ' off') + '"><div class="rt">' + (i + 1) + '. ' + esc(r.texto) + '</div>' +
+        '<div class="rb"><button class="btn ' + (r.ativa ? '' : 'sec') + ' mini" data-a="ligaRegra" data-id="' + id + '" aria-pressed="' + r.ativa + '">' + (r.ativa ? '✓ Ligada' : '○ Desligada') + '</button>' +
+        '<button class="ico" data-a="sobeRegra" data-id="' + id + '" aria-label="Subir"' + (i === 0 ? ' disabled' : '') + '>↑</button>' +
+        '<button class="ico" data-a="desceRegra" data-id="' + id + '" aria-label="Descer"' + (i === db.regras.length - 1 ? ' disabled' : '') + '>↓</button>' +
+        '<button class="ico" data-a="editaRegra" data-id="' + id + '" aria-label="Editar">✎</button>' +
+        '<button class="ico" data-a="apagaRegra" data-id="' + id + '" aria-label="Apagar">🗑</button></div></div>';
+    });
+    s += '<label for="novaRegra">Nova regra</label><textarea id="novaRegra" data-in="novaRegra" placeholder="Ex.: Sábado à tarde não alugamos.">' + esc(est.novaRegra) + '</textarea>' +
+      '<button class="btn" style="margin-top:8px" data-a="addRegra">+ Adicionar regra</button>';
+    s += '<div class="card"><h2 style="margin-top:0">Testar a IA</h2><p class="leg">Escreva como se fosse um cliente. Nada é enviado nem gravado.</p>' +
+      '<label for="simTexto">Mensagem do cliente</label><textarea id="simTexto" data-in="simTexto" placeholder="Ex.: Tem horário quinta às 21h?">' + esc(est.simTexto) + '</textarea>' +
+      '<label for="simTel">Fingir que é o cliente (opcional)</label><select id="simTel" data-ch="simTel"><option value="">— Contato novo —</option>' +
+      db.clientes.filter(function (c) { return c.telefone; }).sort(function (a, b) { return a.nome.localeCompare(b.nome); }).map(function (c) {
+        return '<option value="' + esc(c.telefone) + '"' + (est.simTel === c.telefone ? ' selected' : '') + '>' + esc(c.nome) + '</option>'; }).join('') + '</select>' +
+      '<button class="btn" style="margin-top:8px" data-a="simular"' + (est.simCarregando ? ' disabled' : '') + '>' + (est.simCarregando ? 'Pensando…' : 'Testar a IA') + '</button>';
+    var r = est.simRes;
+    if (r) {
+      if (r.erro && !r.resposta) s += '<p class="erro">⚠ ' + esc(r.erro) + '</p>';
+      if (r.resposta) s += '<div class="msg dono sugerida" style="margin-top:12px">🤖 ' + esc(r.resposta) + '</div>';
+      var desc = descreveAcao(db, r.acao);
+      if (desc) s += '<p><b>Ação:</b> ' + esc(desc) + ' ' + (r.valida ? '✓ válida' : '<span class="erro">⚠ ' + esc(r.erro || 'inválida') + '</span>') + '</p>';
+      var dec = r.decisao;
+      if (dec && ehObj(dec) && dec.tipo === 'ignorar') s += '<p class="leg">A IA <b>não responderia</b>: ' + esc(dec.motivo || '') + '</p>';
+      else if (dec && ehObj(dec) && dec.motivo) s += '<p class="leg">Decisão: ' + esc(dec.motivo) + '</p>';
+      else if (typeof dec === 'string') s += '<p class="leg">Decisão: ' + esc(dec) + '</p>';
     }
-    return s;
+    return s + '</div>';
   }
 
-  async function fetchTempo(url, init, ms) {
-    var ctl = new AbortController(), t = setTimeout(function () { ctl.abort(); }, ms || 25000);
-    try { return await fetch(url, Object.assign({}, init, { signal: ctl.signal })); }
-    finally { clearTimeout(t); }
+  /* ---------- AJUSTES (formulários) ---------- */
+  function valor(k) { return pegaCaminho(cfg(), k); }
+  function fCampo(rot, k, tp, op) {
+    var v = valor(k), id = 'k_' + k.replace(/\W/g, '_'), at = ' id="' + id + '" data-k="' + esc(k) + '" data-tp="' + tp + '" data-rot="' + esc(rot) + '"';
+    var s = '<label for="' + id + '">' + esc(rot) + '</label>';
+    if (tp === 'area') return s + '<textarea' + at + '>' + esc(v) + '</textarea>';
+    if (tp === 'bool') return s + '<select' + at + '><option value="1"' + (v ? ' selected' : '') + '>Sim</option><option value="0"' + (!v ? ' selected' : '') + '>Não</option></select>';
+    if (tp === 'sel') return s + '<select' + at + '>' + op.map(function (o) { return '<option value="' + esc(o[0]) + '"' + (v === o[0] ? ' selected' : '') + '>' + esc(o[1]) + '</option>'; }).join('') + '</select>';
+    if (tp === 'lista' || tp === 'tels') return s + '<textarea' + at + ' style="min-height:96px">' + esc((v || []).join('\n')) + '</textarea>';
+    if (tp === 'hora') return s + '<input type="time"' + at + ' value="' + esc(v) + '">';
+    if (tp === 'num' || tp === 'numn') return s + '<input inputmode="decimal"' + at + ' value="' + esc(v == null ? '' : v) + '"' + (op ? ' placeholder="' + esc(op) + '"' : '') + '>';
+    return s + '<input' + at + ' value="' + esc(v == null ? '' : v) + '"' + (op ? ' placeholder="' + esc(op) + '"' : '') + '>';
   }
-  async function chamarIA(req, ler) {
-    var resp;
-    try { resp = await fetchTempo(req.url, req.init, 25000); }
-    catch (e) {
-      var err = new Error(!navigator.onLine ? erroAmigavel(0) : (e && e.name === 'AbortError' ? 'A IA demorou demais. Tente de novo.' : 'Sem internet. A agenda funciona, mas a IA e o envio não.'));
-      err.trocar = true; throw err;
-    }
-    if (!resp.ok) {
-      var corpo = ''; try { corpo = await resp.text(); } catch (e2) { /* ignora */ }
-      var er = new Error(erroAmigavel(resp.status, corpo)); er.trocar = true; er.status = resp.status; throw er;
-    }
-    var j = await resp.json(), tx = ler(j);
-    if (!tx) { var e3 = new Error('A IA não respondeu. Tente de novo.'); e3.trocar = true; throw e3; }
-    return tx;
+  function secao(id, titulo, corpo, aberto) {
+    return '<details class="card" data-sec="' + id + '"' + (aberto ? ' open' : '') + '><summary>' + esc(titulo) + '</summary><div class="corpo">' + corpo +
+      '<button class="btn" style="margin-top:12px" data-a="salvaSec" data-sec="' + id + '">Salvar</button></div></details>';
   }
-  function chamarGemini(sys, contents) {
-    var ia = db.config.ia;
-    return chamarIA(montaReqGemini(ia.geminiModel || 'gemini-2.5-flash', ia.geminiKey, sys, contents), textoGemini);
-  }
-  function chamarGroq(sys, contents) {
-    var ia = db.config.ia;
-    return chamarIA(montaReqGroq(ia.groqModel || 'llama-3.3-70b-versatile', ia.groqKey, sys, contents), textoGroq);
-  }
-  async function gerarResposta(cli, msg) {
-    var sys = montaPrompt(db, cli, agora()), contents = montaContents(cli ? cli.historico : [], msg), ia = db.config.ia;
-    if (ia.geminiKey) {
-      try { return extraiJSON(await chamarGemini(sys, contents)); }
-      catch (e) { if (!ia.groqKey) throw e; }
-    }
-    return extraiJSON(await chamarGroq(sys, contents));
-  }
-
-  /* ---- envio WhatsApp (sempre por toque do dono) ---- */
-  async function enviarMensagem(numero, texto) {
-    var tel = normalizaTelefone(numero);
-    if (!telefoneOk(tel)) { toast('⚠ Telefone parece incompleto. Use DDD + número.', true); return false; }
-    var evo = db.config.evo;
-    if (evoConfigurada(evo)) {
-      try {
-        var r = montaEnvioEvo(evo, tel, texto), resp = await fetchTempo(r.url, r.init, 25000);
-        if (!resp.ok) throw new Error('HTTP ' + resp.status);
-        toast('Mensagem enviada ✓');
-        return true;
-      } catch (e) {
-        acoesTemp.abrirWa = function () { fechaFolha(); window.open(urlWhatsApp(tel, texto), '_blank'); };
-        abreFolha('<h3>⚠ Não consegui enviar pelo servidor</h3><p>Quer abrir o WhatsApp e enviar você mesmo?</p><button class="btn" data-a="abrirWa">Enviar no WhatsApp</button>');
-        return true;
-      }
-    }
-    window.open(urlWhatsApp(tel, texto), '_blank');
-    return true;
-  }
-  async function conectarEvo() {
-    var evo = db.config.evo, box = $('evoStatus');
-    if (!evoConfigurada(evo)) { toast('⚠ Preencha endereço, chave e instância.', true); return; }
-    if (box) box.innerHTML = '<p>Conectando…</p>';
-    try {
-      var resp = await fetchTempo(urlConectarEvo(evo), { method: 'GET', headers: { apikey: String(evo.apikey).trim() } }, 25000);
-      if (!resp.ok) throw new Error(resp.status === 401 || resp.status === 403 ? 'Chave do servidor inválida.' : resp.status === 404 ? 'Instância não encontrada.' : 'O servidor respondeu com erro ' + resp.status + '.');
-      var q = extraiQR(await resp.json());
-      if (!box) return;
-      if (q && q.conectado) box.innerHTML = '<p style="font-weight:700;color:var(--pri)">✓ Conectado</p>';
-      else if (q && q.qr) {
-        box.innerHTML = '<p>No celular do WhatsApp: ⋮ › Aparelhos conectados › Conectar aparelho, e aponte para o código:</p><img class="qr" alt="Código QR do WhatsApp">';
-        box.querySelector('img').src = q.qr;
-      } else box.innerHTML = '<p class="erro">⚠ O servidor não mandou o código. Tente de novo.</p>';
-    } catch (e) {
-      if (box) box.innerHTML = '<p class="erro">⚠ ' + esc(!navigator.onLine ? 'Sem internet.' : (e.name === 'AbortError' ? 'O servidor demorou demais.' : (e.message && /^[A-ZÁÉÍÓÚO]/.test(e.message) && e.message.indexOf('Failed') < 0 ? e.message : 'Não consegui falar com o servidor. Confira o endereço.'))) + '</p>';
-    }
-  }
-
-  /* ---- AJUSTES ---- */
-  function campoSenha(id, rot, val) {
-    return '<label for="' + id + '">' + rot + '</label><div class="linha"><input id="' + id + '" type="password" autocomplete="off" spellcheck="false" value="' + esc(val) +
-      '" style="flex:3"><button class="ico" data-a="olho" data-alvo="' + id + '" style="flex:none" aria-label="Mostrar">👁</button></div>';
+  function lerSecao(el) {
+    var patch = {}, erros = [];
+    Array.prototype.forEach.call(el.querySelectorAll('[data-k]'), function (i) {
+      var k = i.getAttribute('data-k'), tp = i.getAttribute('data-tp'), v = i.value, rot = i.getAttribute('data-rot');
+      if (tp === 'bool') v = v === '1';
+      else if (tp === 'num') { v = numOuNulo(v); if (v == null || v < 0) { erros.push(rot); return; } }
+      else if (tp === 'numn') { if (String(v).trim() !== '' && numOuNulo(v) == null) { erros.push(rot); return; } v = numOuNulo(v); }
+      else if (tp === 'hora') { if (!horaOk(v)) { erros.push(rot); return; } }
+      else if (tp === 'lista') v = String(v).split(/\r?\n|,/).map(function (x) { return x.trim(); }).filter(Boolean);
+      else if (tp === 'tels') v = String(v).split(/\r?\n|,/).map(normalizaTelefone).filter(Boolean);
+      else if (tp === 'nums') v = parseNums(v, 0, 23);
+      else v = String(v).trim();
+      poeCaminho(patch, k, v);
+    });
+    return { patch: patch, erros: erros };
   }
   function telaAjustes() {
-    var c = db.config, s = '';
-    var dias = db.ultimoBackup ? Math.floor((Date.now() - db.ultimoBackup) / 86400000) : null;
-    if (dias === null || dias > 7) s += '<div class="aviso">⚠ ' + (dias === null ? 'Você ainda não salvou nenhuma cópia.' : 'Faz mais de 7 dias sem backup. Salve uma cópia.') + '</div>';
-    s += '<details class="card" id="secGuia"' + (temChaveIA() ? '' : ' open') + '><summary>Como começar</summary><div class="corpo">' + htmlGuia() + TX_FAZ + '</div></details>';
-    s += '<details class="card"' + (temChaveIA() ? ' open' : '') + '><summary>Meu negócio</summary><div class="corpo">' +
-      '<label for="aNome">Seu nome (a IA fala em seu nome)</label><input id="aNome" value="' + esc(c.nomeDono) + '">' +
-      '<label for="aPreco">Preço (deixe vazio se não quiser que a IA fale)</label><input id="aPreco" placeholder="Ex.: R$ 150 a hora" value="' + esc(c.preco) + '">' +
-      '<label for="aRegras">Regras do negócio</label><textarea id="aRegras" style="min-height:220px">' + esc(c.regras) + '</textarea>' +
-      '<label for="aC1">Nome do campo 1</label><input id="aC1" value="' + esc(c.campos[1] || '') + '"><label for="aC2">Nome do campo 2</label><input id="aC2" value="' + esc(c.campos[2] || '') + '">' +
-      '<button class="btn" style="margin-top:12px" data-a="salvaNeg">Salvar</button></div></details>';
-    s += '<details class="card"><summary>Horários</summary><div class="corpo"><p class="leg">Horas de início, separadas por vírgula. Vazio = fechado.</p>';
+    var c = cfg(), s = '';
+    s += secao('negocio', 'Negócio', fCampo('Nome do negócio', 'nome_negocio', 'txt') + fCampo('Seu nome (a IA fala em seu nome)', 'nome_dono', 'txt') +
+      fCampo('Endereço', 'endereco', 'txt') + fCampo('Link do mapa', 'link_mapa', 'txt', 'https://maps.app.goo.gl/...'), !c.nome_dono);
+    var esp = (c.precos.especiais || []).map(function (e, i) {
+      return '<div class="card esp" data-esp="' + i + '"><b>Preço especial ' + (i + 1) + '</b>' +
+        '<label>Dias (0=dom … 6=sáb, vazio = todos)</label><input data-e="dias" inputmode="numeric" value="' + esc((e.dias || []).join(', ')) + '">' +
+        '<label>Horas (vazio = todas)</label><input data-e="horas" inputmode="numeric" value="' + esc((e.horas || []).join(', ')) + '">' +
+        '<label>Campos (vazio = todos)</label><input data-e="campos" inputmode="numeric" value="' + esc((e.campos || []).join(', ')) + '">' +
+        '<div class="linha"><div><label>Avulso R$</label><input data-e="avulso" inputmode="decimal" value="' + esc(e.avulso == null ? '' : e.avulso) + '"></div>' +
+        '<div><label>Fixo R$</label><input data-e="fixo" inputmode="decimal" value="' + esc(e.fixo == null ? '' : e.fixo) + '"></div></div>' +
+        '<button class="btn perigo" data-a="delEsp" data-i="' + i + '">Remover este preço</button></div>';
+    }).join('');
+    s += secao('precos', 'Preços', '<p class="leg">Deixe vazio se não quiser que a IA fale de preço. Ela nunca inventa.</p>' +
+      fCampo('Preço avulso (R$ por hora)', 'precos.avulso', 'numn', 'Ex.: 150') + fCampo('Preço fixo (R$ por hora)', 'precos.fixo', 'numn', 'Ex.: 120') +
+      fCampo('Observação sobre preço', 'precos.observacao', 'area') + '<h2>Preços especiais</h2><p class="leg">Vale o primeiro que bater.</p><div id="esps">' + esp + '</div>' +
+      '<button class="btn sec" data-a="addEsp">+ Adicionar preço especial</button>');
+    s += secao('pagamento', 'Pagamento', fCampo('Como pagar (texto)', 'pagamento.texto', 'area') + fCampo('Chave Pix', 'pagamento.pix_chave', 'txt') +
+      fCampo('Exigir sinal para reservar?', 'pagamento.sinal_obrigatorio', 'bool') + fCampo('Valor do sinal (R$)', 'pagamento.sinal_valor', 'numn'));
+    s += secao('atendimento', 'Atendimento da IA', fCampo('Tom de voz', 'tom_de_voz', 'txt') + fCampo('Usar emojis?', 'usar_emojis', 'bool') +
+      fCampo('Assinatura no fim (opcional)', 'assinatura', 'txt') +
+      '<div class="linha"><div>' + fCampo('Esperar no mínimo (seg)', 'atraso_resposta_seg.min', 'num') + '</div><div>' + fCampo('No máximo (seg)', 'atraso_resposta_seg.max', 'num') + '</div></div>' +
+      fCampo('Quando você responde, a IA fica calada por (minutos)', 'pausa_quando_dono_responde_min', 'num') +
+      fCampo('Máximo de respostas por contato por hora', 'limite_respostas_por_contato_hora', 'num') +
+      fCampo('Palavras para chamar você (uma por linha)', 'falar_com_dono.palavras', 'lista') +
+      fCampo('Mensagem quando pedem para falar com você', 'falar_com_dono.mensagem', 'area') +
+      fCampo('Depois disso, a IA fica calada por (minutos)', 'falar_com_dono.pausa_min', 'num') +
+      fCampo('Boas-vindas para quem escreve pela 1ª vez (opcional)', 'boas_vindas_desconhecidos', 'area') +
+      fCampo('Mensagem fora do horário da IA (opcional)', 'mensagem_fora_do_horario', 'area'));
+    var jan = c.horario_ia.janelas || {}, hj = '';
     [1, 2, 3, 4, 5, 6, 0].forEach(function (d) {
-      s += '<label for="g' + d + '">' + DIAS_LONGO[d].charAt(0).toUpperCase() + DIAS_LONGO[d].slice(1) + '</label><input id="g' + d + '" inputmode="numeric" value="' + esc((c.grade[d] || []).join(', ')) + '">';
+      var j = jan[d];
+      hj += '<div class="dia-ia" data-dia="' + d + '"><label for="jl' + d + '">' + esc(DIAS_LONGO[d].charAt(0).toUpperCase() + DIAS_LONGO[d].slice(1)) + '</label>' +
+        '<div class="fx3"><select id="jl' + d + '" data-j="liga"><option value="1"' + (j ? ' selected' : '') + '>Fala</option><option value="0"' + (!j ? ' selected' : '') + '>Calada</option></select>' +
+        '<input type="time" data-j="inicio" aria-label="Início" value="' + esc(j ? j.inicio : '08:00') + '"><input type="time" data-j="fim" aria-label="Fim" value="' + esc(j ? j.fim : '22:00') + '"></div></div>';
     });
-    s += '<button class="btn" style="margin-top:12px" data-a="salvaGrade">Salvar</button></div></details>';
-    s += '<details class="card"><summary>Mensagens</summary><div class="corpo"><p class="leg">Use {nome}, {dia}, {hora} e {campo}.</p>' +
-      '<label for="mM">1º aviso (manhã)</label><textarea id="mM">' + esc(c.msgManha) + '</textarea>' +
-      '<label for="mT">2º aviso (tarde)</label><textarea id="mT">' + esc(c.msgTarde) + '</textarea>' +
-      '<button class="btn" style="margin-top:12px" data-a="salvaMsg">Salvar</button></div></details>';
-    s += '<details class="card" id="secIA"><summary>IA</summary><div class="corpo"><p class="leg">A chave fica só neste celular.</p>' + TX_PRIV +
-      campoSenha('iGk', 'Chave do Gemini (Google)', c.ia.geminiKey) + '<label for="iGm">Modelo do Gemini</label><input id="iGm" value="' + esc(c.ia.geminiModel) + '">' +
-      campoSenha('iQk', 'Chave do Groq (reserva, opcional)', c.ia.groqKey) + '<label for="iQm">Modelo do Groq</label><input id="iQm" value="' + esc(c.ia.groqModel) + '">' +
-      '<button class="btn" style="margin-top:12px" data-a="salvaIA">Salvar</button>' +
-      '<h2>Importar conversas</h2><p class="leg">Exporte conversas do WhatsApp (sem mídia) e escolha os arquivos .txt. A IA aprende o <b>jeito de falar</b> com um trecho das conversas; ela não decora tudo.</p>' +
+    s += secao('horario', 'Horários da IA', fCampo('Quando a IA responde', 'horario_ia.modo', 'sel', [['sempre', 'Sempre (24 horas)'], ['janelas', 'Só nos horários abaixo']]) + hj);
+    s += secao('quem', 'Quem atender', fCampo('A IA responde', 'atender', 'sel', [['todos_menos_ignorados', 'Todos, menos os ignorados'], ['todos', 'Todos'], ['so_cadastrados', 'Só clientes cadastrados']]) +
+      fCampo('Números ignorados (um por linha)', 'ignorados', 'tels') + fCampo('Cadastrar sozinho quem escrever pela 1ª vez?', 'cadastrar_desconhecidos', 'bool'));
+    s += secao('reservas', 'Reservas pela IA', '<p class="leg">No modo Automático, a IA só faz o que estiver liberado aqui.</p>' +
+      fCampo('A IA pode reservar horário avulso?', 'permitir_ia_reservar', 'bool') + fCampo('A IA pode cancelar reserva?', 'permitir_ia_cancelar', 'bool') +
+      fCampo('A IA pode confirmar fixo / marcar "não vem"?', 'permitir_ia_confirmar', 'bool') +
+      fCampo('Antecedência mínima para reservar (horas)', 'antecedencia_minima_reserva_h', 'num') + fCampo('Reservar no máximo quantos dias à frente', 'max_dias_reserva_frente', 'num') +
+      fCampo('Cancelar só com quantas horas de antecedência', 'cancelamento_regra_h', 'num'));
+    s += secao('confirmacao', 'Confirmação automática', fCampo('Mandar confirmação aos fixos sozinho?', 'confirmacao_auto', 'bool') +
+      '<div class="linha"><div>' + fCampo('1º aviso (véspera)', 'confirmacao_manha_hora', 'hora') + '</div><div>' + fCampo('2º aviso', 'confirmacao_tarde_hora', 'hora') + '</div></div>' +
+      fCampo('Não mandar depois de', 'confirmacao_ultima_hora', 'hora') +
+      fCampo('Liberar o horário do fixo que não respondeu?', 'liberar_fixo_sem_resposta.ligado', 'bool') + fCampo('Liberar a partir de', 'liberar_fixo_sem_resposta.hora', 'hora'));
+    s += secao('modelos', 'Modelos de mensagem', '<p class="leg">Use {nome} {dia} {hora} {campo} {dono} {pagamento} {endereco}.</p>' +
+      fCampo('1º aviso (manhã)', 'modelos.manha', 'area') + fCampo('2º aviso (tarde)', 'modelos.tarde', 'area') + fCampo('Reserva confirmada', 'modelos.reserva_confirmada', 'area') +
+      fCampo('Cancelamento', 'modelos.cancelamento', 'area') + fCampo('Fixo confirmou', 'modelos.confirmou', 'area') + fCampo('Fixo não vem', 'modelos.nao_vem', 'area'));
+    s += secao('avisos', 'Avisos para você', '<p class="leg">O que aparece em Avisos na tela Início.</p>' +
+      fCampo('Cliente pediu para falar com você', 'notificar_dono.falar_com_dono', 'bool') + fCampo('Reserva nova', 'notificar_dono.nova_reserva', 'bool') +
+      fCampo('Cancelamento', 'notificar_dono.cancelamento', 'bool') + fCampo('Fixo não vem', 'notificar_dono.nao_vem', 'bool') + fCampo('Erro da IA', 'notificar_dono.erro_ia', 'bool') +
+      fCampo('Robô fora do ar', 'notificar_dono.robo_offline', 'bool') + fCampo('Sugestão nova esperando', 'notificar_dono.sugestao_nova', 'bool'));
+    var gr = '<p class="leg">Horas de início, separadas por vírgula. Vazio = fechado.</p>';
+    [1, 2, 3, 4, 5, 6, 0].forEach(function (d) {
+      gr += '<label for="g' + d + '">' + esc(DIAS_LONGO[d].charAt(0).toUpperCase() + DIAS_LONGO[d].slice(1)) + '</label><input id="g' + d + '" data-k="grade.' + d + '" data-tp="nums" data-rot="Grade" inputmode="numeric" value="' + esc((c.grade[d] || []).join(', ')) + '">';
+    });
+    gr += '<label for="gCampos">Nomes dos campos (um por linha)</label><textarea id="gCampos" style="min-height:96px">' + esc(listaCampos(db).map(function (n) { return nomeCampo(db, n); }).join('\n')) + '</textarea>';
+    gr += fCampo('Duração de cada jogo (minutos)', 'duracao_min', 'num') + fCampo('Quantos dias de horários livres a IA vê', 'dias_livres_no_prompt', 'num');
+    s += secao('grade', 'Grade e campos', gr);
+    s += '<details class="card" data-sec="chaves" id="secChaves"' + (!(L.config.gemini_key || L.config.groq_key) ? ' open' : '') + '><summary>Chaves da IA</summary><div class="corpo">' +
+      '<p class="leg">Pegue a chave grátis em <a class="lk" href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">aistudio.google.com/apikey</a> › Create API key.</p>' +
+      campoSenha('cGem', 'Chave do Gemini (Google)', L.config.gemini_key) + campoSenha('cGroq', 'Chave do Groq (reserva, opcional)', L.config.groq_key) +
+      '<p class="leg">As chaves ficam no seu banco; só o servidor usa. Nunca vão para o robô.</p>' + TX_PRIV +
+      '<button class="btn" style="margin-top:12px" data-a="salvaChaves">Salvar chaves</button></div></details>';
+    s += secao('ia', 'IA (avançado)', fCampo('IA principal', 'ia.provedor', 'sel', [['gemini', 'Gemini (Google)'], ['groq', 'Groq']]) +
+      fCampo('Modelo do Gemini', 'ia.gemini_modelo', 'txt') + fCampo('Modelo do Groq', 'ia.groq_modelo', 'txt') + fCampo('Usar o Groq se o Gemini falhar?', 'ia.usar_reserva_groq', 'bool') +
+      fCampo('Criatividade (0 a 1)', 'ia.temperatura', 'num') + fCampo('Tamanho máximo da resposta (tokens)', 'ia.max_tokens', 'num') +
+      fCampo('Quantas mensagens da conversa a IA lê', 'ia.historico_msgs', 'num') + fCampo('Letras de exemplos de conversa', 'ia.exemplos_chars', 'num') +
+      fCampo('Esperar a IA no máximo (seg)', 'ia.timeout_seg', 'num'));
+    var conv = '<p class="leg">Exporte conversas do WhatsApp (⋮ › Mais › <b>Exportar conversa</b> › <b>Sem mídia</b>) e escolha os arquivos .txt. A IA aprende o <b>jeito de falar</b>; ela não decora tudo.</p>' +
       '<p class="leg">⚠ Apague dados sensíveis do .txt antes de importar: o texto vai para a IA.</p>' +
       '<label for="arqTxt">Importar conversas (.txt)</label><input id="arqTxt" type="file" accept=".txt,text/plain" multiple data-ch="arqTxt">';
-    if (db.conversas.length) s += db.conversas.map(function (cv, i) {
+    if (db.conversas.length) conv += db.conversas.map(function (cv) {
       return '<div class="linha" style="align-items:center;margin-top:8px"><div style="flex:3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">📄 ' + esc(cv.nomeArquivo) +
-        ' <span class="leg">(' + Math.round(String(cv.texto).length / 1000) + ' mil letras)</span></div><button class="ico" style="flex:none" data-a="delConv" data-i="' + i + '" aria-label="Remover">🗑</button></div>'; }).join('');
-    else s += '<p class="leg">Nenhuma conversa importada.</p>';
-    s += '</div></details>';
-    s += '<details class="card" id="secEvo"><summary>Conexão automática (avançado, opcional)</summary><div class="corpo">' +
-      '<p class="leg"><b>Não é necessário para usar o app.</b> Sem isto, o botão Enviar abre o WhatsApp com o texto pronto e você só toca em enviar.</p>' +
-      '<p class="leg">Isto exige um servidor próprio com Evolution API (geralmente pago ou montado por um técnico). Com ele, o app envia direto ao tocar em Enviar.</p>' +
-      '<label for="eU">Endereço do servidor (começa com https://)</label><input id="eU" type="url" inputmode="url" placeholder="https://..." value="' + esc(c.evo.url) + '">' +
-      campoSenha('eK', 'Chave (apikey)', c.evo.apikey) + '<label for="eI">Nome da instância</label><input id="eI" value="' + esc(c.evo.instancia) + '">' +
-      '<button class="btn" style="margin-top:12px" data-a="salvaEvo">Salvar</button><button class="btn sec" data-a="conectaEvo">Conectar WhatsApp</button><div id="evoStatus"></div></div></details>';
-    s += '<details class="card"' + (dias === null || dias > 7 ? ' open' : '') + '><summary>Backup</summary><div class="corpo">' +
-      '<p class="leg">Último backup: ' + (db.ultimoBackup ? esc(new Date(db.ultimoBackup).toLocaleString('pt-BR')) : 'nunca') + '</p>' +
-      '<p class="leg">A cópia inclui suas chaves. Guarde em lugar seguro.</p>' +
-      '<button class="btn" data-a="exportar">Salvar cópia (backup)</button><button class="btn sec" data-a="importar">Recuperar cópia</button>' +
-      '<input id="arqBk" type="file" accept=".json,application/json" class="oculto" data-ch="arqBk"></div></details>';
+        ' <span class="leg">(' + Math.round(String(cv.texto).length / 1000) + ' mil letras)</span></div><button class="ico" style="flex:none" data-a="delConv" data-id="' + esc(cv.id) + '" aria-label="Remover">🗑</button></div>'; }).join('');
+    else conv += '<p class="leg">Nenhuma conversa importada.</p>';
+    s += '<details class="card" id="secConv"><summary>Exemplos de conversa</summary><div class="corpo">' + conv + '</div></details>';
+    s += '<details class="card" data-sec="robo"><summary>Robô</summary><div class="corpo">' + htmlRobo() +
+      '<h2>Ritmo de envio</h2><p class="leg">Pausas maiores diminuem o risco de bloqueio.</p>' +
+      '<div class="linha"><div>' + fCampo('Pausa mínima entre envios (seg)', 'robo.pausa_envio_seg.min', 'num') + '</div><div>' + fCampo('Pausa máxima (seg)', 'robo.pausa_envio_seg.max', 'num') + '</div></div>' +
+      fCampo('Máximo de envios por minuto', 'robo.max_envios_por_minuto', 'num') +
+      '<button class="btn" style="margin-top:12px" data-a="salvaSec" data-sec="robo">Salvar ritmo</button></div></details>';
+    s += '<details class="card"><summary>Trazer meus dados</summary><div class="corpo"><p class="leg">Usava a versão antiga do app neste celular? Traga clientes, reservas e regras para a conta.</p>' +
+      '<button class="btn sec" data-a="ir" data-t="migrar">Trazer meus dados deste celular</button></div></details>';
+    s += '<details class="card"><summary>Conta</summary><div class="corpo"><p class="leg">Entrou como: ' + esc(est.email) + '</p><button class="btn perigo" data-a="sair">Sair</button></div></details>';
     return s;
+  }
+  function campoSenha(id, rot, val) {
+    return '<label for="' + id + '">' + esc(rot) + '</label><div class="linha"><input id="' + id + '" type="password" autocomplete="off" spellcheck="false" value="' + esc(val || '') +
+      '" style="flex:3"><button class="ico" data-a="olho" data-alvo="' + id + '" style="flex:none" aria-label="Mostrar">👁</button></div>';
+  }
+
+  /* ---------- ROBÔ ---------- */
+  function htmlRobo() {
+    var s = cartaoRobo(false);
+    if (est.codigo) s += '<div class="codigo-box"><p>Digite este código no robô:</p><div class="codigo" id="codigoRobo">' + esc(est.codigo) + '</div>' +
+      '<p class="leg">Ele aparece só agora. Se perder, gere outro (o anterior deixa de valer).</p></div>';
+    s += '<button class="btn' + (est.codigo ? ' sec' : '') + '" data-a="gerarCodigo">' + (est.codigo ? 'Gerar outro código' : 'Gerar código do robô') + '</button>';
+    s += '<h2>Como instalar no computador (Windows)</h2><ol class="passos">' +
+      '<li><b>Baixe a pasta do robô:</b> <a class="lk" href="' + esc(URL_ROBO) + '" rel="noopener noreferrer">baixar o robô (.zip)</a>. Extraia o arquivo e abra a pasta <b>robo</b>.</li>' +
+      '<li>Dê dois cliques em <b>INICIAR.bat</b>. Na primeira vez ele instala o que precisa (pode pedir para fechar e abrir de novo).</li>' +
+      '<li>Quando pedir, <b>digite o código</b> de 8 letras gerado aqui em cima e aperte Enter.</li>' +
+      '<li>Vai aparecer um <b>QR</b> (na janela, aqui no app e em http://localhost:3210). No celular: WhatsApp › ⋮ › <b>Aparelhos conectados</b> › <b>Conectar aparelho</b> e escaneie.</li>' +
+      '<li>Pronto: o cartão acima fica <b>🟢 online</b>. Deixe o computador ligado e com internet.</li>' +
+      '<li>Opcional: dê dois cliques em <b>INICIAR-COM-WINDOWS.bat</b> para o robô abrir sozinho quando ligar o PC.</li></ol>' + TX_RISCO;
+    return s;
+  }
+
+  /* ---------- MAIS ---------- */
+  function telaMais() {
+    var it = [['confirmar', '✅', 'Confirmar jogos de amanhã'], ['regras', '📋', 'Regras da IA e Testar a IA'], ['ajustes', '⚙️', 'Ajustes'],
+      ['robo', '💻', 'Robô (WhatsApp no computador)'], ['guia', '❓', 'Como começar'], ['migrar', '📲', 'Trazer meus dados deste celular']];
+    return it.map(function (x) { return '<button class="card cli" data-a="ir" data-t="' + x[0] + '"><span class="g2">' + x[1] + '</span><div><div class="n">' + esc(x[2]) + '</div></div><span class="leg">›</span></button>'; }).join('') +
+      '<button class="btn perigo" style="margin-top:16px" data-a="sair">Sair da conta</button>';
+  }
+
+  /* ---------- MIGRAÇÃO ---------- */
+  function lerAntigo() {
+    try { var raw = localStorage.getItem(CHAVE_LS); return raw ? JSON.parse(raw) : null; } catch (e) { return null; }
+  }
+  function telaMigrar() {
+    var s = '<p>Traga os dados da versão antiga do app (que ficavam só neste celular) para a sua conta.</p>';
+    var m = est.migr;
+    if (m) {
+      var l = m.linhas;
+      s += '<div class="card"><b>Encontrei:</b><ul class="passos"><li>' + l.clientes.length + ' clientes (' + l.horarios_fixos.length + ' horários fixos)</li><li>' + l.reservas.length + ' reservas</li>' +
+        '<li>' + l.regras.length + ' regras novas</li><li>' + l.conversas_exemplo.length + ' conversas de exemplo</li>' +
+        (l.chaves.gemini_key || l.chaves.groq_key ? '<li>chaves da IA</li>' : '') + '</ul>' +
+        '<p class="leg">Nada é apagado: o que já existe na conta continua.</p><button class="btn" data-a="migrarOk">Trazer agora</button><button class="btn sec" data-a="migrarCancela">Cancelar</button></div>';
+      return s;
+    }
+    var temLocal = !!lerAntigo();
+    s += temLocal ? '<button class="btn" data-a="migrarLocal">Trazer meus dados deste celular</button>' : '<div class="faixa">Não achei dados antigos neste celular. Se você tem um backup (.json), escolha abaixo.</div>';
+    s += '<label for="arqBk">Ou escolha um backup (.json)</label><input id="arqBk" type="file" accept=".json,application/json" data-ch="arqBk">';
+    return s;
+  }
+  function preparaMigracao(obj) {
+    if (!validaBackup(obj)) { toast('⚠ Esse arquivo não é um backup válido.', true); return; }
+    var linhas = ajustaMigracao(paraLinhas(obj), L);
+    est.migr = { linhas: linhas }; render();
+  }
+  async function aplicaMigracao() {
+    var l = est.migr.linhas;
+    if (l.clientes.length) await q(sb.from('clientes').upsert(l.clientes, { onConflict: 'id' }));
+    if (l.horarios_fixos.length) await q(sb.from('horarios_fixos').insert(l.horarios_fixos));
+    if (l.reservas.length) await q(sb.from('reservas').upsert(l.reservas, { onConflict: 'id' }));
+    if (l.excecoes.length) await q(sb.from('excecoes').insert(l.excecoes));
+    if (l.confirmacoes.length) await q(sb.from('confirmacoes').upsert(l.confirmacoes, { onConflict: 'data,hora,campo' }));
+    if (l.conversas_exemplo.length) await q(sb.from('conversas_exemplo').insert(l.conversas_exemplo));
+    if (l.regras.length) await q(sb.from('regras').insert(l.regras));
+    var cd = clone(l.configDados);
+    if (cfg().nome_dono) delete cd.nome_dono;
+    if (cfg().precos.observacao) delete cd.precos;
+    await salvaCfg(cd, ['grade', 'campos']);
+    var ch = {};
+    if (l.chaves.gemini_key && !L.config.gemini_key) ch.gemini_key = l.chaves.gemini_key;
+    if (l.chaves.groq_key && !L.config.groq_key) ch.groq_key = l.chaves.groq_key;
+    if (Object.keys(ch).length) await q(sb.from('config').update(ch).eq('id', 1));
+    est.migr = null; est.tela = 'clientes';
   }
 
   function lerArquivo(f) {
     return new Promise(function (ok, erro) { var r = new FileReader(); r.onload = function () { ok(String(r.result)); }; r.onerror = erro; r.readAsText(f); });
   }
 
-  /* ---- ações por clique ---- */
+  /* ---------- ações por clique ---------- */
   function dadosCel(b) { return { d: b.getAttribute('data-d') || est.data, h: Number(b.getAttribute('data-h')), c: Number(b.getAttribute('data-c')) }; }
+  function regraPorId(id) { return db.regras.filter(function (r) { return String(r.id) === String(id); })[0]; }
+  function msgPorId(id) { return L.sugeridas.concat(est.msgsConv).filter(function (m) { return String(m.id) === String(id); })[0]; }
   var ACOES = {
     fechaFolha: fechaFolha,
+    confirmaOk: function () { if (acoesTemp.confirmaOk) return acoesTemp.confirmaOk(); },
+    ir: function (b) { vaiPara(b.getAttribute('data-t')); },
+    voltar: function (b) { vaiPara(b.getAttribute('data-v')); },
+    tentarDeNovo: function () { location.reload(); },
+
+    /* login */
+    entrar: async function () {
+      var email = $('lEmail').value.trim(), senha = $('lSenha').value;
+      est.email = email; est.infoLogin = '';
+      if (!email || !senha) { est.erroLogin = 'Preencha email e senha.'; render(); return; }
+      var r = await sb.auth.signInWithPassword({ email: email, password: senha });
+      if (r.error) { est.erroLogin = msgErro(r.error); render(); return; }
+      est.erroLogin = ''; await entrouNaConta(r.data.session);
+    },
+    criarConta: async function () {
+      var email = $('lEmail').value.trim(), senha = $('lSenha').value;
+      est.email = email; est.infoLogin = '';
+      if (!email || senha.length < 6) { est.erroLogin = 'Preencha o email e uma senha com pelo menos 6 letras ou números.'; render(); return; }
+      var r = await sb.auth.signUp({ email: email, password: senha, options: { emailRedirectTo: location.origin + location.pathname } });
+      if (r.error) { est.erroLogin = msgErro(r.error); render(); return; }
+      if (!r.data.session) { est.erroLogin = ''; est.infoLogin = 'Enviamos um e-mail de confirmação. Abra o e-mail, toque no link e depois entre aqui.'; render(); return; }
+      est.erroLogin = ''; await entrouNaConta(r.data.session);
+    },
+    sair: async function () {
+      try { if (canal) sb.removeChannel(canal); } catch (e) { /* ignora */ }
+      clearInterval(timerPoll); canal = null;
+      await sb.auth.signOut();
+      L = vazioL(); db = montaDb(L); est.fase = 'login'; est.tela = 'inicio'; est.codigo = ''; render();
+    },
+
+    /* início */
+    liga: function () {
+      var novo = !cfg().ia_ligada;
+      if (novo && !(L.config.gemini_key || L.config.groq_key)) toast('⚠ Falta a chave da IA. Coloque em Ajustes › Chaves da IA.', true);
+      return faz(function () { return salvaCfg({ ia_ligada: novo }); }, novo ? 'IA ligada ✓' : 'IA desligada ✓', true);
+    },
+    modo: function (b) {
+      var m = b.getAttribute('data-m');
+      if (m === cfg().modo) return;
+      if (m === 'automatico') {
+        confirma('No modo Automático a IA responde sozinha, sem você aprovar. Ela pode errar. Teste antes no modo Sugerir e confira Ajustes › Reservas pela IA.',
+          'Ligar o Automático', function () { return faz(function () { return salvaCfg({ modo: 'automatico' }); }, 'Modo Automático ✓', true); }, true, TX_RISCO);
+        return;
+      }
+      return faz(function () { return salvaCfg({ modo: 'sugerir' }); }, 'Modo Sugerir ✓', true);
+    },
+    lido: function (b) { var id = Number(b.getAttribute('data-id')); return faz(function () { return q(sb.from('avisos').update({ lido: true }).eq('id', id)); }); },
+    todosLidos: function () { var ids = L.avisos.map(function (a) { return a.id; }); return faz(function () { return q(sb.from('avisos').update({ lido: true }).in('id', ids)); }, 'Pronto ✓'); },
+
+    /* sugestões */
+    aprovar: function (b) {
+      var id = Number(b.getAttribute('data-id')), m = msgPorId(id), corpo = { acao: 'aprovar', mensagem_id: id };
+      if (b.getAttribute('data-ed')) {
+        var t = ($('edMsg') ? $('edMsg').value : est.editTxt).trim();
+        if (!t) { toast('⚠ A resposta está vazia.', true); return; }
+        corpo.texto = t;
+      }
+      var sel = $('ap' + id);
+      if (sel) corpo.aplicar_acao = sel.value === '1';
+      b.disabled = true; b.textContent = 'Enviando…';
+      return faz(async function () {
+        var r = await invocar(corpo);
+        est.editMsg = null;
+        if (r.acao_status === 'recusada') toast('⚠ Texto aprovado, mas a ação não foi feita: ' + (r.acao_erro || 'inválida'), true);
+        if (m && est.conv !== m.telefone) { /* nada */ }
+      }, 'Aprovado ✓ Vai sair pelo robô.');
+    },
+    editar: function (b) { var m = msgPorId(b.getAttribute('data-id')); if (!m) return; est.editMsg = m.id; est.editTxt = m.texto; render(); var t = $('edMsg'); if (t) t.focus(); },
+    cancelaEd: function () { est.editMsg = null; render(); },
+    descartar: function (b) {
+      var id = Number(b.getAttribute('data-id'));
+      return faz(function () { return q(sb.from('mensagens').update({ status: 'ignorada', motivo: 'descartada pelo dono' }).eq('id', id)); }, 'Descartada ✓');
+    },
+
+    /* conversas */
+    abreConv: function (b) {
+      var tel = b.getAttribute('data-tel');
+      fechaFolha();
+      est.tela = 'conversas'; est.conv = normalizaTelefone(tel); est.msgsConv = []; est.resp = ''; est.editMsg = null;
+      render(); window.scrollTo(0, 0);
+      return faz(async function () {
+        await carregaConversa();
+        var c = L.contatos.filter(function (x) { return x.telefone === est.conv; })[0];
+        if (c && c.nao_lidas) { await q(sb.from('contatos').update({ nao_lidas: 0 }).eq('telefone', c.telefone)); c.nao_lidas = 0; }
+      }, '', true);
+    },
+    responder: function () {
+      var t = String($('resp') ? $('resp').value : est.resp).trim();
+      if (!t) { toast('⚠ Escreva a mensagem primeiro.', true); return; }
+      var c = contatoDe(est.conv);
+      return faz(async function () { await enviaManual(est.conv, t, c.cliente_id, 'dono'); est.resp = ''; }, 'Na fila ✓ Vai sair pelo robô.');
+    },
+    pausar: function () {
+      abreFolha('<h3>Pausar a IA neste contato</h3><p class="leg">A IA não responde esta pessoa até o fim da pausa. Você continua respondendo.</p>' +
+        '<button class="btn sec" data-a="pausaOp" data-op="1h">Por 1 hora</button><button class="btn sec" data-a="pausaOp" data-op="4h">Por 4 horas</button>' +
+        '<button class="btn sec" data-a="pausaOp" data-op="24h">Por 24 horas</button><button class="btn sec" data-a="pausaOp" data-op="sempre">Até eu tirar</button>');
+    },
+    pausaOp: function (b) {
+      var ate = pausaAte(b.getAttribute('data-op'), Date.now()), tel = est.conv;
+      fechaFolha();
+      return faz(async function () {
+        var c = L.contatos.filter(function (x) { return x.telefone === tel; })[0];
+        if (c) await q(sb.from('contatos').update({ pausado_ate: ate, motivo_pausa: 'pausado pelo dono' }).eq('telefone', tel));
+        else await q(sb.from('contatos').upsert({ telefone: tel, pausado_ate: ate, motivo_pausa: 'pausado pelo dono' }, { onConflict: 'telefone' }));
+      }, 'IA pausada neste contato ✓');
+    },
+    despausar: function () {
+      var tel = est.conv;
+      return faz(function () { return q(sb.from('contatos').update({ pausado_ate: null, motivo_pausa: null }).eq('telefone', tel)); }, 'IA voltou neste contato ✓');
+    },
+
+    /* agenda */
     diaAnt: function () { est.data = somaDias(est.data, -1); render(); },
     diaProx: function () { est.data = somaDias(est.data, 1); render(); },
     diaHoje: function () { est.data = dataLocal(agora()); render(); },
     cel: function (b) { var x = dadosCel(b); folhaCelula(x.h, x.c); },
-    pago: function (b) { var r = marcarPago(db, b.getAttribute('data-id'), true); fechaFolha(); if (r.ok) muda(r.db, 'Pago ✓', true); },
-    naoPago: function (b) { var r = marcarPago(db, b.getAttribute('data-id'), false); fechaFolha(); if (r.ok) muda(r.db, 'Salvo ✓', true); },
+    pago: function (b) { var id = b.getAttribute('data-id'); fechaFolha(); return faz(function () { return q(sb.from('reservas').update({ pago: true }).eq('id', id)); }, 'Pago ✓'); },
+    naoPago: function (b) { var id = b.getAttribute('data-id'); fechaFolha(); return faz(function () { return q(sb.from('reservas').update({ pago: false }).eq('id', id)); }, 'Salvo ✓'); },
     cancelaRes: function (b) {
       var id = b.getAttribute('data-id');
-      confirma('A reserva será cancelada e o horário fica livre.', 'Cancelar reserva', function () { var r = cancelarReserva(db, id); if (r.ok) muda(r.db, 'Reserva cancelada ✓', true); });
+      confirma('A reserva será cancelada e o horário fica livre.', 'Cancelar reserva', function () { return faz(function () { return q(sb.from('reservas').delete().eq('id', id)); }, 'Reserva cancelada ✓'); });
     },
-    confirmou: function (b) { var x = dadosCel(b); fechaFolha(); muda(marcarConfirmado(db, x.d, x.h, x.c).db, 'Salvo ✓', true); },
+    confirmou: function (b) { var x = dadosCel(b); fechaFolha(); return faz(function () { return upConf(x.d, x.h, x.c, { status: 'confirmado', respondido_em: agoraIso() }); }, 'Salvo ✓'); },
     naoVem: function (b) {
       var x = dadosCel(b);
-      confirma('O horário ficará livre para avulso só nesta data.', 'Não vem desta vez', function () { var r = marcarNaoVem(db, x.d, x.h, x.c); if (r.ok) muda(r.db, 'Salvo ✓', true); });
+      confirma('O horário ficará livre para avulso só nesta data.', 'Não vem desta vez', function () { return faz(function () { return naoVem(x.d, x.h, x.c); }, 'Salvo ✓'); });
     },
-    desfazNaoVem: function (b) { var x = dadosCel(b); var r = desfazerNaoVem(db, x.d, x.h, x.c); fechaFolha(); if (r.ok) muda(r.db, 'Salvo ✓'); else toast('⚠ ' + r.erro, true); },
+    desfazNaoVem: function (b) { var x = dadosCel(b); fechaFolha(); return faz(function () { return desfazNaoVem(x.d, x.h, x.c); }, 'Salvo ✓'); },
     reservar: function (b) {
       var x = dadosCel(b), cid = $('selCliRes') && $('selCliRes').value;
       var r = reservarAvulso(db, { data: x.d, hora: x.h, campo: x.c, clienteId: cid });
-      fechaFolha(); if (r.ok) muda(r.db, 'Reserva feita ✓', true); else toast('⚠ ' + r.erro, true);
+      fechaFolha();
+      if (!r.ok) { toast('⚠ ' + r.erro, true); return; }
+      var nv = r.reserva;
+      return faz(function () { return q(sb.from('reservas').insert({ id: nv.id, data: nv.data, hora: nv.hora, campo: nv.campo, cliente_id: nv.clienteId, pago: false, origem: 'dono' })); }, 'Reserva feita ✓');
     },
     novoCliRes: function () { fechaFolha(); est.tela = 'clientes'; est.editCli = { nome: '', telefone: '', tipo: 'avulso', fixos: [] }; render(); },
-    falar: function (b) { fechaFolha(); est.tela = 'ia'; est.iaCli = b.getAttribute('data-cid'); est.iaResp = ''; est.iaAcao = null; render(); },
+
+    /* clientes */
     novoCli: function () { est.editCli = { nome: '', telefone: '', tipo: 'avulso', fixos: [] }; render(); window.scrollTo(0, 0); },
     editCli: function (b) { var c = clientePorId(db, b.getAttribute('data-cid')); if (c) { est.editCli = clone(c); render(); window.scrollTo(0, 0); } },
     cancelaCli: function () { est.editCli = null; render(); },
     addFixo: function () {
       lerFormCli();
-      var dia = [1, 2, 3, 4, 5, 6, 0].filter(function (d) { return (db.config.grade[d] || []).length; })[0];
-      if (dia == null) { toast('⚠ Nenhum dia com horário. Veja Ajustes › Horários.', true); return; }
+      var dia = diasAbertos()[0];
+      if (dia == null) { toast('⚠ Nenhum dia com horário. Veja Ajustes › Grade e campos.', true); return; }
       est.editCli.fixos = (est.editCli.fixos || []).concat([{ dia: dia, hora: db.config.grade[dia][0], campo: listaCampos(db)[0] }]); render();
     },
     delFixo: function (b) { lerFormCli(); est.editCli.fixos.splice(Number(b.getAttribute('data-i')), 1); render(); },
@@ -1097,127 +1739,162 @@ if (typeof module !== 'undefined') module.exports = {
       var c = est.editCli;
       if (String(c.telefone || '').trim() && !telefoneOk(c.telefone)) { toast('⚠ Telefone parece incompleto. Use DDD + número.', true); return; }
       if (c.tipo === 'fixo' && !(c.fixos || []).length) { toast('⚠ Adicione pelo menos um horário fixo.', true); return; }
-      var daIA = !!c._daIA, dados = clone(c); delete dados._daIA;
-      var r = salvarCliente(db, dados);
+      var r = salvarCliente(db, clone(c));
       if (!r.ok) { toast('⚠ ' + r.erro, true); return; }
-      est.editCli = null;
-      if (daIA) { est.tela = 'ia'; est.iaCli = r.cliente.id; }
-      muda(r.db, 'Salvo ✓');
+      return faz(async function () { await gravaCliente(r.cliente); est.editCli = null; }, 'Salvo ✓');
     },
     removeCli: function () {
       var id = est.editCli.id, nome = est.editCli.nome;
-      confirma('Apagar ' + nome + ' e as reservas dele?', 'Apagar cliente', function () { est.editCli = null; if (est.iaCli === id) est.iaCli = ''; muda(removerCliente(db, id), 'Cliente apagado ✓', true); });
+      confirma('Apagar ' + nome + ' e as reservas dele?', 'Apagar cliente', function () {
+        return faz(async function () { await q(sb.from('clientes').delete().eq('id', id)); est.editCli = null; }, 'Cliente apagado ✓');
+      });
     },
-    enviaConf: async function (b) {
+
+    /* confirmar */
+    enviaConf: function (b) {
       var x = dadosCel(b), item = fixosDeAmanha(db, agora()).filter(function (i) { return i.hora === x.h && i.campo === x.c; })[0];
       if (!item) return;
       if (!item.cliente.telefone) { toast('⚠ Esse cliente está sem telefone.', true); return; }
-      b.disabled = true; b.textContent = 'Enviando…';
-      var texto = textoConfirmacao(db, item);
-      var ok = await enviarMensagem(item.cliente.telefone, texto);
-      if (ok) {
-        var n = registrarEnvio(db, x.d, x.h, x.c).db; n = addHistorico(n, item.cliente.id, 'dono', texto); muda(n);
-      } else render();
+      var texto = textoDaConfirmacao(db, item), prox = proximoStatus(item.status), online = roboOnline();
+      if (!online) window.open('https://wa.me/' + normalizaTelefone(item.cliente.telefone) + '?text=' + encodeURIComponent(texto), '_blank');
+      return faz(async function () {
+        if (online) await enviaManual(item.cliente.telefone, texto, item.cliente.id, 'confirmacao');
+        var extra = { status: prox }; extra[prox === 'manha' ? 'manha_em' : 'tarde_em'] = agoraIso();
+        await upConf(x.d, x.h, x.c, extra);
+      }, online ? 'Na fila ✓ Vai sair pelo robô.' : 'Robô fora do ar: abri o WhatsApp.');
     },
-    confirmouC: function (b) { var x = dadosCel(b); muda(marcarConfirmado(db, x.d, x.h, x.c).db, 'Salvo ✓', true); },
-    naoVemC: function (b) { var x = dadosCel(b); var r = marcarNaoVem(db, x.d, x.h, x.c); if (r.ok) muda(r.db, 'Salvo ✓ Horário livre para avulso.', true); },
-    desfazNaoVemC: function (b) { var x = dadosCel(b); var r = desfazerNaoVem(db, x.d, x.h, x.c); if (r.ok) muda(r.db, 'Salvo ✓'); else toast('⚠ ' + r.erro, true); },
-    irAjustes: function () { est.tela = 'ajustes'; render(); },
-    novoCliIA: function () { est.tela = 'clientes'; est.editCli = { nome: '', telefone: '', tipo: 'avulso', fixos: [], _daIA: true }; render(); },
-    limpaHist: function () {
-      confirma('A conversa guardada com este cliente será apagada.', 'Limpar conversa', function () {
-        var n = clone(db), c = clientePorId(n, est.iaCli); if (c) c.historico = []; muda(n, 'Salvo ✓', true);
-      });
+    confirmouC: function (b) { return ACOES.confirmou(b); },
+    naoVemC: function (b) { var x = dadosCel(b); return faz(function () { return naoVem(x.d, x.h, x.c); }, 'Salvo ✓ Horário livre para avulso.'); },
+    desfazNaoVemC: function (b) { return ACOES.desfazNaoVem(b); },
+
+    /* regras */
+    addRegra: function () {
+      var t = String($('novaRegra') ? $('novaRegra').value : est.novaRegra).trim();
+      if (!t) { toast('⚠ Escreva a regra primeiro.', true); return; }
+      var ordem = db.regras.reduce(function (m, r) { return Math.max(m, r.ordem); }, 0) + 1;
+      return faz(async function () { await q(sb.from('regras').insert({ texto: t, ativa: true, ordem: ordem })); est.novaRegra = ''; }, 'Regra adicionada ✓');
     },
-    gerar: async function () {
-      var msg = String(est.iaMsg || '').trim();
-      if (!msg) { toast('⚠ Cole a mensagem do cliente primeiro.', true); return; }
-      if (!navigator.onLine) { toast('⚠ Sem internet. A agenda funciona, mas a IA e o envio não.', true); return; }
-      est.iaCarregando = true; render();
+    ligaRegra: function (b) { var r = regraPorId(b.getAttribute('data-id')); if (!r) return; return faz(function () { return q(sb.from('regras').update({ ativa: !r.ativa }).eq('id', r.id)); }, r.ativa ? 'Regra desligada ✓' : 'Regra ligada ✓'); },
+    editaRegra: function (b) { var r = regraPorId(b.getAttribute('data-id')); if (r) { est.editRegra = r.id; render(); } },
+    cancelaRegra: function () { est.editRegra = null; render(); },
+    salvaRegra: function (b) {
+      var r = regraPorId(b.getAttribute('data-id')), t = $('edRegra').value.trim();
+      if (!t) { toast('⚠ A regra está vazia.', true); return; }
+      return faz(async function () { await q(sb.from('regras').update({ texto: t }).eq('id', r.id)); est.editRegra = null; }, 'Salvo ✓');
+    },
+    sobeRegra: function (b) { return moveRegra(b.getAttribute('data-id'), -1); },
+    desceRegra: function (b) { return moveRegra(b.getAttribute('data-id'), 1); },
+    apagaRegra: function (b) {
+      var r = regraPorId(b.getAttribute('data-id')); if (!r) return;
+      confirma('Apagar a regra "' + r.texto.slice(0, 60) + '"?', 'Apagar regra', function () { return faz(function () { return q(sb.from('regras').delete().eq('id', r.id)); }, 'Regra apagada ✓'); });
+    },
+    simular: async function () {
+      var t = String($('simTexto') ? $('simTexto').value : est.simTexto).trim();
+      if (!t) { toast('⚠ Escreva a mensagem do cliente.', true); return; }
+      est.simTexto = t; est.simCarregando = true; est.simRes = null; render();
       try {
-        var cli = clientePorId(db, est.iaCli), r = await gerarResposta(cli, msg);
-        est.iaResp = r.resposta; est.iaAcao = r.acao;
-      } catch (e) { toast('⚠ ' + (e && e.message ? e.message : 'A IA não respondeu. Tente de novo.'), true); }
-      est.iaCarregando = false; render();
+        var corpo = { acao: 'simular', texto: t };
+        if (est.simTel) corpo.telefone = est.simTel;
+        est.simRes = await invocar(corpo);
+      } catch (e) { est.simRes = { erro: msgErro(e) }; }
+      est.simCarregando = false; render();
     },
-    aplicar: function () {
-      var v = validaAcao(db, est.iaAcao, est.iaCli, agora());
-      if (!v.ok) { toast('⚠ ' + v.erro, true); return; }
-      var n = aplicarAcao(db, est.iaAcao, est.iaCli);
-      est.iaAcao = { tipo: 'nenhuma' };
-      muda(n, 'Salvo ✓', true);
+
+    /* ajustes */
+    salvaSec: function (b) {
+      var id = b.getAttribute('data-sec'), el = document.querySelector('[data-sec="' + id + '"]');
+      var r = lerSecao(el), subst = [];
+      if (r.erros.length) { toast('⚠ Confira: ' + r.erros.join(', ') + '.', true); return; }
+      var p = r.patch;
+      if (p.atraso_resposta_seg && p.atraso_resposta_seg.min > p.atraso_resposta_seg.max) { toast('⚠ O mínimo não pode ser maior que o máximo.', true); return; }
+      if (id === 'precos') {
+        var esp = [], erroEsp = false;
+        Array.prototype.forEach.call(el.querySelectorAll('[data-esp]'), function (c) {
+          function v(k) { return c.querySelector('[data-e="' + k + '"]').value; }
+          var av = numOuNulo(v('avulso')), fx = numOuNulo(v('fixo'));
+          if ((String(v('avulso')).trim() && av == null) || (String(v('fixo')).trim() && fx == null)) erroEsp = true;
+          esp.push({ dias: parseNums(v('dias'), 0, 6), horas: parseNums(v('horas'), 0, 23), campos: parseNums(v('campos'), 1, 9), avulso: av, fixo: fx });
+        });
+        if (erroEsp) { toast('⚠ Confira os valores dos preços especiais.', true); return; }
+        p.precos.especiais = esp;
+      }
+      if (id === 'confirmacao' && p.liberar_fixo_sem_resposta && p.liberar_fixo_sem_resposta.hora > p.confirmacao_ultima_hora) {
+        toast('⚠ A hora de liberar o fixo (' + p.liberar_fixo_sem_resposta.hora + ') precisa ser até a hora limite das confirmações (' + p.confirmacao_ultima_hora + ').', true); return;
+      }
+      if (id === 'horario') {
+        var jan = {}, erroJ = false;
+        Array.prototype.forEach.call(el.querySelectorAll('[data-dia]'), function (d) {
+          var liga = d.querySelector('[data-j="liga"]').value === '1', ini = d.querySelector('[data-j="inicio"]').value, fim = d.querySelector('[data-j="fim"]').value;
+          if (liga && (!horaOk(ini) || !horaOk(fim))) erroJ = true;
+          jan[d.getAttribute('data-dia')] = liga ? { inicio: ini, fim: fim } : null;
+        });
+        if (erroJ) { toast('⚠ Confira as horas de início e fim.', true); return; }
+        p.horario_ia.janelas = jan;
+      }
+      if (id === 'grade') {
+        var nomes = $('gCampos').value.split(/\r?\n/).map(function (x) { return x.trim(); }).filter(Boolean).slice(0, 9);
+        if (!nomes.length) { toast('⚠ Escreva o nome de pelo menos um campo.', true); return; }
+        p.campos = {}; nomes.forEach(function (n, i) { p.campos[i + 1] = n; });
+        subst.push('campos');
+      }
+      return faz(function () { return salvaCfg(p, subst); }, 'Salvo ✓', true);
     },
-    enviarIA: async function (b) {
-      var cli = clientePorId(db, est.iaCli), txt = String(est.iaResp || '').trim();
-      if (!txt) { toast('⚠ A resposta está vazia.', true); return; }
-      if (!cli || !cli.telefone) { toast('⚠ Cadastre o contato com telefone, ou use Copiar.', true); return; }
-      b.disabled = true; b.textContent = 'Enviando…';
-      var ok = await enviarMensagem(cli.telefone, txt);
-      if (ok) {
-        var n = db, m = String(est.iaMsg || '').trim();
-        if (m) n = addHistorico(n, cli.id, 'cliente', m);
-        n = addHistorico(n, cli.id, 'dono', txt);
-        est.iaMsg = ''; est.iaResp = ''; est.iaAcao = null; muda(n);
-      } else render();
+    addEsp: function () {
+      var el = document.querySelector('[data-sec="precos"]'), r = lerSecao(el);
+      var n = clone(cfg().precos.especiais || []); n.push({ dias: [], horas: [], campos: [], avulso: null, fixo: null });
+      db.cfg.precos.especiais = n; render(); var d = document.querySelector('[data-sec="precos"]'); if (d) d.open = true;
+      if (r) { /* valores digitados nas outras caixas ficam como estavam salvos */ }
     },
-    copiarIA: async function () {
-      var t = String(est.iaResp || '');
-      try { await navigator.clipboard.writeText(t); toast('Texto copiado ✓'); }
-      catch (e) { var ta = $('iaResp'); if (ta) { ta.select(); try { document.execCommand('copy'); toast('Texto copiado ✓'); } catch (e2) { toast('⚠ Não consegui copiar. Segure o texto e copie.', true); } } }
+    delEsp: function (b) {
+      var n = clone(cfg().precos.especiais || []); n.splice(Number(b.getAttribute('data-i')), 1);
+      db.cfg.precos.especiais = n; render(); var d = document.querySelector('[data-sec="precos"]'); if (d) d.open = true;
+      toast('Removido. Toque em Salvar para confirmar.');
+    },
+    salvaChaves: function () {
+      var g = $('cGem').value.trim(), k = $('cGroq').value.trim();
+      return faz(async function () { await q(sb.from('config').update({ gemini_key: g, groq_key: k, atualizado_em: agoraIso() }).eq('id', 1)); }, 'Chaves salvas ✓');
     },
     olho: function (b) { var i = $(b.getAttribute('data-alvo')); if (i) { var m = i.type === 'password'; i.type = m ? 'text' : 'password'; b.setAttribute('aria-label', m ? 'Esconder' : 'Mostrar'); b.textContent = m ? '🙈' : '👁'; } },
-    salvaNeg: function () {
-      var n = clone(db);
-      n.config.nomeDono = $('aNome').value.trim(); n.config.preco = $('aPreco').value.trim(); n.config.regras = $('aRegras').value;
-      n.config.campos[1] = $('aC1').value.trim() || 'Campo 1'; n.config.campos[2] = $('aC2').value.trim() || 'Campo 2';
-      muda(n, 'Salvo ✓');
-    },
-    salvaGrade: function () {
-      var n = clone(db);
-      [0, 1, 2, 3, 4, 5, 6].forEach(function (d) { n.config.grade[d] = parseGrade($('g' + d).value); });
-      muda(n, 'Salvo ✓');
-    },
-    salvaMsg: function () { var n = clone(db); n.config.msgManha = $('mM').value; n.config.msgTarde = $('mT').value; muda(n, 'Salvo ✓'); },
-    salvaIA: function () {
-      var n = clone(db);
-      n.config.ia = { geminiKey: $('iGk').value.trim(), geminiModel: $('iGm').value.trim() || 'gemini-2.5-flash', groqKey: $('iQk').value.trim(), groqModel: $('iQm').value.trim() || 'llama-3.3-70b-versatile' };
-      muda(n, 'Salvo ✓');
-    },
     delConv: function (b) {
-      var i = Number(b.getAttribute('data-i'));
-      confirma('Remover a conversa "' + db.conversas[i].nomeArquivo + '"?', 'Remover', function () { var n = clone(db); n.conversas.splice(i, 1); muda(n, 'Removido ✓', true); });
+      var id = Number(b.getAttribute('data-id'));
+      confirma('Remover esta conversa de exemplo?', 'Remover', function () { return faz(function () { return q(sb.from('conversas_exemplo').delete().eq('id', id)); }, 'Removido ✓'); });
     },
-    salvaEvo: function () {
-      var u = $('eU').value.trim().replace(/\/+$/, '');
-      if (u && !evoUrlOk(u)) { toast('⚠ O endereço precisa começar com https://', true); return false; }
-      var n = clone(db); n.config.evo = { url: u, apikey: $('eK').value.trim(), instancia: $('eI').value.trim() }; muda(n, 'Salvo ✓'); return true;
+    gerarCodigo: function () {
+      var faca = function () {
+        return faz(async function () { est.codigo = await q(sb.rpc('gerar_codigo_robo')); }, 'Código novo ✓', true);
+      };
+      if (est.codigo || estadoRobo(L.robo, Date.now()) !== 'nunca') confirma('O código antigo deixa de valer. O robô vai pedir o código novo.', 'Gerar código novo', faca, false);
+      else return faca();
     },
-    conectaEvo: function () { if (ACOES.salvaEvo() === false) return; var d = $('secEvo'); if (d) d.open = true; conectarEvo(); },
-    exportar: function () {
-      try {
-        var n = clone(db); n.ultimoBackup = Date.now();
-        var blob = new Blob([JSON.stringify(n, null, 1)], { type: 'application/json' }), a = document.createElement('a');
-        a.href = URL.createObjectURL(blob); a.download = 'campos-backup-' + dataLocal(new Date()) + '.json';
-        document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
-        muda(n, 'Cópia salva no celular ✓');
-      } catch (e) { toast('⚠ Não consegui salvar a cópia.', true); }
-    },
-    importar: function () { $('arqBk').click(); },
-    confirmaOk: function () { if (acoesTemp.confirmaOk) acoesTemp.confirmaOk(); },
-    abrirWa: function () { if (acoesTemp.abrirWa) acoesTemp.abrirWa(); }
+
+    /* migração */
+    migrarLocal: function () { preparaMigracao(lerAntigo()); },
+    migrarCancela: function () { est.migr = null; render(); },
+    migrarOk: function () { return faz(aplicaMigracao, 'Dados trazidos ✓'); }
   };
+  function moveRegra(id, dir) {
+    var i = -1; db.regras.forEach(function (r, j) { if (String(r.id) === String(id)) i = j; });
+    var j = i + dir; if (i < 0 || j < 0 || j >= db.regras.length) return;
+    var a = db.regras[i], b = db.regras[j];
+    var oa = a.ordem === b.ordem ? a.ordem + dir : b.ordem, ob = a.ordem === b.ordem ? a.ordem : a.ordem;
+    return faz(async function () {
+      await q(sb.from('regras').update({ ordem: oa }).eq('id', a.id));
+      await q(sb.from('regras').update({ ordem: ob }).eq('id', b.id));
+    }, 'Ordem salva ✓');
+  }
   document.addEventListener('click', function (e) {
     var b = e.target.closest('[data-a]'); if (!b) return;
     var f = ACOES[b.getAttribute('data-a')]; if (!f) return;
     e.preventDefault();
-    try { var p = f(b, e); if (p && p.catch) p.catch(function () { toast('⚠ Algo deu errado. Tente de novo.', true); }); }
+    try { var p = f(b, e); if (p && p.catch) p.catch(function (er) { est.ocupado = false; toast('⚠ ' + msgErro(er), true); }); }
     catch (err) { toast('⚠ Algo deu errado. Tente de novo.', true); }
   });
-
-  /* ---- mudanças em campos ---- */
   document.addEventListener('input', function (e) {
     var k = e.target.getAttribute && e.target.getAttribute('data-in');
     if (k) est[k] = e.target.value;
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && est.fase === 'login' && e.target && e.target.id === 'lSenha') { e.preventDefault(); ACOES.entrar(); }
   });
   document.addEventListener('change', async function (e) {
     var el = e.target, k = el.getAttribute && el.getAttribute('data-ch'); if (!k) return;
@@ -1231,45 +1908,59 @@ if (typeof module !== 'undefined') module.exports = {
       render();
       if (outro) toast('⚠ Esse horário já é de outro cliente fixo. (' + outro.nome + ')', true);
     }
-    else if (k === 'iaCli') { est.iaCli = el.value; est.iaResp = ''; est.iaAcao = null; render(); }
+    else if (k === 'simTel') est.simTel = el.value;
     else if (k === 'arqTxt') {
-      var arqs = Array.prototype.slice.call(el.files || []), n = clone(db), qt = 0;
+      var arqs = Array.prototype.slice.call(el.files || []), novos = [];
       for (var i = 0; i < arqs.length; i++) {
-        try {
-          var tx = await lerArquivo(arqs[i]);
-          n.conversas = n.conversas.filter(function (c) { return c.nomeArquivo !== arqs[i].name; });
-          n.conversas.push({ nomeArquivo: arqs[i].name, texto: cortaConversa(tx, 15000), importadoEm: Date.now() }); qt++;
-        } catch (er) { /* pula arquivo ruim */ }
+        try { novos.push({ nome_arquivo: arqs[i].name, texto: cortaConversa(await lerArquivo(arqs[i]), 15000) }); } catch (er) { /* pula */ }
       }
       try { el.value = ''; } catch (er0) { /* ignora */ }
-      if (qt) { muda(n, qt + (qt > 1 ? ' conversas importadas ✓' : ' conversa importada ✓')); var d = $('secIA'); if (d) d.open = true; }
-      else toast('⚠ Não consegui ler o arquivo.', true);
+      if (!novos.length) { toast('⚠ Não consegui ler o arquivo.', true); return; }
+      var ok = await faz(async function () {
+        var nomes = novos.map(function (n) { return n.nome_arquivo; });
+        await q(sb.from('conversas_exemplo').delete().in('nome_arquivo', nomes));
+        await q(sb.from('conversas_exemplo').insert(novos));
+      }, novos.length + (novos.length > 1 ? ' conversas importadas ✓' : ' conversa importada ✓'));
+      if (ok) { var d = $('secConv'); if (d) d.open = true; }
     }
     else if (k === 'arqBk') {
       var a = el.files && el.files[0]; if (!a) return;
       var obj = null;
       try { obj = JSON.parse(await lerArquivo(a)); } catch (er2) { obj = null; }
       el.value = '';
-      if (!validaBackup(obj)) { toast('⚠ Esse arquivo não é um backup válido.', true); return; }
-      confirma('Os dados atuais deste celular serão trocados pelos da cópia (' + obj.clientes.length + ' clientes, ' + obj.reservas.length + ' reservas).', 'Recuperar cópia', function () {
-        muda(limpaAntigos(mesclaDefaults(obj), new Date()), 'Cópia recuperada ✓', true);
-      });
+      preparaMigracao(obj);
     }
   });
-  var hojeVisto = dataLocal(new Date());
-  document.addEventListener('visibilitychange', function () {
-    if (document.visibilityState !== 'visible') return;
-    var h = dataLocal(new Date());
-    if (h !== hojeVisto) {
-      if (est.data === hojeVisto) est.data = h;
-      hojeVisto = h; db = limpaAntigos(db, new Date()); salvar();
-      if (!est.editCli) render();
-    }
-  });
-  window.addEventListener('online', function () { if (est.tela === 'ia') render(); });
-  window.addEventListener('offline', function () { toast('⚠ Sem internet. A agenda funciona, mas a IA e o envio não.'); if (est.tela === 'ia') render(); });
+  window.addEventListener('offline', function () { toast('⚠ Sem internet. Os dados voltam quando a internet voltar.'); });
+  window.addEventListener('online', function () { atualizaFundo(true); });
 
+  /* ---------- início ---------- */
+  async function entrouNaConta(sessao) {
+    if (!sessao) { est.fase = 'login'; render(); return; }
+    est.email = (sessao.user && sessao.user.email) || est.email;
+    est.fase = 'carregando'; render();
+    try {
+      var dono = await q(sb.rpc('reivindicar_dono'));
+      if (!dono) { est.fase = 'naoDono'; render(); return; }
+      est.fase = 'app';
+      await recarregar(true);
+      ligaTempoReal();
+    } catch (e) {
+      est.fase = 'app';
+      toast('⚠ ' + msgErro(e), true);
+    }
+    render();
+  }
+  async function iniciar() {
+    if (!window.supabase || !window.supabase.createClient) { est.fase = 'semLib'; render(); return; }
+    sb = window.supabase.createClient(SB_URL, SB_KEY, { auth: { persistSession: true, autoRefreshToken: true } });
+    var r = await sb.auth.getSession();
+    var s = r && r.data && r.data.session;
+    if (s) await entrouNaConta(s); else { est.fase = 'login'; render(); }
+    sb.auth.onAuthStateChange(function (ev) { if (ev === 'SIGNED_OUT' && est.fase === 'app') { est.fase = 'login'; render(); } });
+  }
   render();
+  iniciar().catch(function (e) { est.fase = 'login'; est.erroLogin = msgErro(e); render(); });
 
   try {
     if ('serviceWorker' in navigator) {

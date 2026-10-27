@@ -1,7 +1,7 @@
 {
-  "name": "Campos – Agenda e IA",
-  "short_name": "Campos",
-  "description": "Agenda dos campos de futebol com atendimento por IA no WhatsApp.",
+  "name": "Motora Teste – Campos e IA",
+  "short_name": "Motora Teste",
+  "description": "Agenda dos campos de futebol com IA que atende o WhatsApp.",
   "lang": "pt-BR",
   "start_url": "./",
   "scope": "./",

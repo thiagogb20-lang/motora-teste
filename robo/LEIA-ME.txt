@@ -1,0 +1,75 @@
+MOTORA TESTE – ROBÔ  (o "robô" do WhatsApp dos Campos)
+=====================================================
+
+O que ele faz
+-------------
+Ele lê as mensagens que chegam no seu WhatsApp e manda para o app dos Campos.
+A IA prepara a resposta. Você aprova no app (ou deixa no automático) e o robô
+envia pelo seu WhatsApp. O computador precisa ficar LIGADO e com INTERNET.
+
+
+PASSO 1 - Pegar o código no app
+-------------------------------
+1. Abra o app dos Campos no celular.
+2. Toque em "Mais" > "Ajustes" > "Robô".
+3. Toque em "Gerar código". Aparece um código de 8 letras. Anote.
+   (Gerar um código novo cancela o antigo.)
+
+
+PASSO 2 - Ligar o robô no computador (Windows)
+----------------------------------------------
+1. Copie esta pasta inteira para um lugar fácil, por exemplo "Documentos".
+2. Dê dois cliques em INICIAR.bat.
+3. Se aparecer que o Node.js não está instalado, ele instala sozinho.
+   Quando terminar, FECHE a janela e dê dois cliques em INICIAR.bat de novo.
+4. Na primeira vez ele baixa alguns arquivos. Espere (pode levar uns minutos).
+5. Ele vai pedir: "Digite o código de 8 letras que aparece no app".
+   Digite o código do Passo 1 e aperte Enter.
+   Se disser "Código inválido, gere outro no app", gere outro e digite de novo.
+
+
+PASSO 3 - Conectar o WhatsApp
+-----------------------------
+1. Vai aparecer um QR (um quadrado de pontinhos) na janela preta.
+   Ele também aparece no app (Ajustes > Robô) e no navegador do computador,
+   no endereço:  http://localhost:3210
+2. No celular: WhatsApp > três pontinhos (ou Configurações) >
+   "Aparelhos conectados" > "Conectar um aparelho".
+3. Aponte o celular para o QR.
+4. Pronto! Na janela aparece "WhatsApp conectado". No app, o robô fica "online".
+
+
+PASSO 4 - Abrir sozinho quando o computador ligar (opcional)
+------------------------------------------------------------
+Dê dois cliques em INICIAR-COM-WINDOWS.bat uma vez só.
+Para desfazer: aperte Windows+R, digite  shell:startup  e apague "Campos-Robo".
+
+
+Dia a dia
+---------
+- Deixe a janela preta ABERTA (pode minimizar). Fechou = robô parado.
+- A IA começa DESLIGADA e no modo "sugerir": nada é enviado sem você aprovar.
+  Ligue e escolha o modo no app, na tela Início.
+- Se você mesmo responder um cliente pelo celular, a IA fica quieta com ele
+  por um tempo (ajustável no app).
+
+
+Problemas comuns
+----------------
+- App mostra "offline": veja se o computador está ligado, com internet e com
+  a janela do robô aberta. Se precisar, feche e abra o INICIAR.bat.
+- QR não aparece / WhatsApp desconectou: feche a janela e abra o INICIAR.bat.
+  Se o celular desconectou o aparelho, um QR novo aparece. É só escanear.
+- Gerou um código novo no app: o robô percebe sozinho e pede o código
+  novo na janela preta. É só digitar.
+- Quer trocar o número do WhatsApp: apague a pasta "sessao" desta pasta e
+  abra o INICIAR.bat de novo.
+
+
+Cuidados
+--------
+- Usar o WhatsApp por um programa que não é oficial pode fazer o WhatsApp
+  bloquear o número. O robô responde devagar e só a quem escreveu, para
+  diminuir o risco. O ideal é usar um número só para os campos.
+- Não mande esta pasta para ninguém: o arquivo config.json e a pasta "sessao"
+  dão acesso ao seu WhatsApp e ao app.

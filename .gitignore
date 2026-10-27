@@ -1,0 +1,5 @@
+node_modules/
+robo/config.json
+robo/sessao/
+tools/
+.env

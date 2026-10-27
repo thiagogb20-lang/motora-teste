@@ -1,7 +1,9 @@
-# Campos – Agenda e IA
+# Motora Teste – Campos e IA
 
-App (PWA) para agenda de 2 campos de futebol, clientes fixos e avulsos, confirmação dos fixos e respostas de WhatsApp sugeridas por IA gratuita.
+App (PWA) para agenda de 2 campos de futebol com atendimento de WhatsApp por IA gratuita.
 
-Abra: https://thiagogb20-lang.github.io/campos/
+- **App:** https://thiagogb20-lang.github.io/motora-teste/
+- **Robô do PC (Windows):** baixe este repositório (Code › Download ZIP), abra a pasta `robo` e dê dois cliques em `INICIAR.bat`. Instruções em `robo/LEIA-ME.txt`.
+- **Servidor:** Edge Function do Supabase em `supabase/functions/robo`.
 
-Os dados e as chaves ficam só no aparelho; nada é salvo neste repositório.
+Nenhuma senha, chave de IA ou dado de cliente fica neste repositório.
