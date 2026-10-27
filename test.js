@@ -286,7 +286,7 @@ t('validaBackup', () => {
 });
 t('mesclaDefaults completa campos faltando', () => {
   const m = C.mesclaDefaults({ versao: 1, config: { nomeDono: 'Zé', ia: { geminiKey: 'k' } }, clientes: [] });
-  eq(m.config.nomeDono, 'Zé'); eq(m.config.ia.geminiKey, 'k'); eq(m.config.ia.geminiModel, 'gemini-2.5-flash');
+  eq(m.config.nomeDono, 'Zé'); eq(m.config.ia.geminiKey, 'k'); eq(m.config.ia.geminiModel, 'gemini-3.5-flash-lite');
   eq(m.config.grade[6], [8, 9]); eq(m.reservas, []); eq(m.confirmacoes, {});
   eq(C.mesclaDefaults('lixo').versao, 1);
 });
@@ -397,7 +397,7 @@ t('montaDb vazio usa a config padrão do contrato', () => {
   const d = C.montaDb({});
   eq([d.cfg.ia_ligada, d.cfg.modo, d.cfg.atender, d.cfg.permitir_ia_reservar], [false, 'sugerir', 'todos_menos_ignorados', false]);
   eq(d.config.grade[5], [17, 18, 19, 20, 21, 22]); eq(d.config.campos, { 1: 'Campo 1', 2: 'Campo 2' });
-  eq(d.cfg.horario_ia.janelas['0'], null); eq(d.cfg.ia.gemini_modelo, 'gemini-2.5-flash');
+  eq(d.cfg.horario_ia.janelas['0'], null); eq(d.cfg.ia.gemini_modelo, 'gemini-3.5-flash-lite');
   eq(d.clientes, []); eq(C.horariosDoDia(d, '2026-11-01'), []);
   eq(Object.keys(C.CFG_PADRAO).length, 41);
 });
