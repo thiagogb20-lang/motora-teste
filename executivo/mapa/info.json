@@ -1,0 +1,13 @@
+{
+  "fonte": "OpenStreetMap contributors (ODbL), tiles Protomaps",
+  "data": "20261109",
+  "minzoom": 0,
+  "maxzoom": 14,
+  "limites": [
+    -49.7,
+    -17.1,
+    -48.8,
+    -16.2
+  ],
+  "tiles": 2533
+}
