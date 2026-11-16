@@ -25,9 +25,7 @@ messaging.onBackgroundMessage(function (payload) {
     badge: BASE + 'icone-192.png',
     tag: d.corrida_id || d.tipo || 'aviso',
     renotify: true,
-    requireInteraction: d.tipo === 'nova_corrida' || d.tipo === 'agendada_para_voce',
-    vibrate: [400, 150, 400, 150, 400],
-    silent: false,
+    requireInteraction: d.tipo === 'nova_corrida',
     data: { url: BASE + (d.corrida_id ? ('?corrida=' + d.corrida_id) : '') },
   });
 });
