@@ -9,6 +9,30 @@
     <link rel="icon" href="/motora-teste/executivo/motorista/favicon.png" />
     <link rel="apple-touch-icon" href="/motora-teste/executivo/motorista/apple-touch-icon.png" />
     <title>Executivo GYN · Motorista</title>
+    <script>
+      // Android (app instalado): se a tela vai até atrás da barra de botões do sistema e o
+      // aparelho não informa esse espaço, reserva 48px no rodapé para os botões não ficarem cobertos.
+      (function () {
+        var C = window.Capacitor;
+        if (!C || !C.isNativePlatform || !C.isNativePlatform() || C.getPlatform() !== 'android') return;
+        var raiz = document.documentElement;
+        function ajustar() {
+          var p = document.createElement('div');
+          p.style.cssText = 'position:fixed;left:0;bottom:0;width:0;height:env(safe-area-inset-bottom,0px);visibility:hidden;pointer-events:none';
+          raiz.appendChild(p);
+          var informado = p.getBoundingClientRect().height;
+          raiz.removeChild(p);
+          var telaInteira = (screen.height - window.innerHeight) <= 30;
+          if (informado < 1 && telaInteira) raiz.style.setProperty('--seguro-base', '48px');
+          else raiz.style.removeProperty('--seguro-base');
+        }
+        var t;
+        function agendar() { clearTimeout(t); t = setTimeout(ajustar, 150); }
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ajustar); else ajustar();
+        window.addEventListener('resize', agendar);
+        window.addEventListener('orientationchange', agendar);
+      })();
+    </script>
     <script type="module" crossorigin src="/motora-teste/executivo/motorista/assets/index-PAdQdmOf.js"></script>
     <link rel="stylesheet" crossorigin href="/motora-teste/executivo/motorista/assets/index-COc94p6e.css">
   <link rel="manifest" href="/motora-teste/executivo/motorista/manifest.webmanifest"></head>
