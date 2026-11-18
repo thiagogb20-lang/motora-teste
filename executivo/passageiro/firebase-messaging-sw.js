@@ -28,7 +28,7 @@ messaging.onBackgroundMessage(function (payload) {
     requireInteraction: d.tipo === 'lembrete_agendada' || d.tipo === 'agendada_confirmada',
     vibrate: [300, 150, 300],
     silent: false,
-    data: { url: BASE },
+    data: { url: d.url || BASE },   // passageiro do link: abre a corrida atual (?minha-corrida=1)
   });
 });
 
